@@ -1,4 +1,4 @@
-/* General elements */
+/* Normalize & general style*/
 * {
     box-sizing: border-box;
 }
@@ -15,6 +15,11 @@ a {
     color: #2895F1;
 }
 
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
 /* Navigation bar */
 
 .site-header {
@@ -24,8 +29,6 @@ a {
 }
 
 .nav-bar {
-    width: 80%;
-    margin: 0 auto;
     display: flex;
     justify-content: space-between;
     align-items: center;
