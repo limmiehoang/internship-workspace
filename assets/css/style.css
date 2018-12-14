@@ -6,7 +6,6 @@
 body, html {
     margin: 0;
     padding: 0;
-    text-align: center;
     color: #454545;
 }
 
@@ -53,7 +52,66 @@ ul {
     height: 34px;
 }
 
+/* Welcome image and login form */
+
 .main-wrapper {
     width: 80%;
     margin: 0 auto;
+}
+
+.login-wrapper {
+    width: 80%;
+    margin: 0 auto;
+    padding: 5rem 0;
+}
+
+.main-col {
+    display: inline-block;
+    width: 50%;
+    margin-right: -4px;
+    vertical-align: top;
+    padding-left: 1em;
+    padding-right: 1em;
+}
+
+.welcome-img img {
+    max-width: 100%;
+    max-height: 100%;
+}
+
+.form-wrapper {
+    width: 350px;
+    margin: 0 auto;
+}
+
+.login-title div {
+    display: inline-block;
+}
+
+.row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+}
+
+.google-signin button {
+    width: 100%;
+}
+
+#remember-me,
+#signin {
+    display: inline-block;
+}
+
+#signin {
+    padding: 1em;
+}
+
+.rem-me {
+    display: flex;
+    align-items: center;
+}
+
+.text-input {
+    width: 100%;
 }
