@@ -1,0 +1,56 @@
+/* General elements */
+* {
+    box-sizing: border-box;
+}
+
+body, html {
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    color: #454545;
+}
+
+a {
+    text-decoration: none;
+    color: #2895F1;
+}
+
+/* Navigation bar */
+
+.site-header {
+    padding: 1em 0;
+    border-bottom: 1px solid #d0d4d9;
+    box-shadow: 0 1px 1px #d0d4d9;
+}
+
+.nav-bar {
+    width: 80%;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.trydropbox {
+    height: 34px;
+    padding: 0 20px;
+    border-radius: 10px;
+    color: #2895F1;
+    font-weight: bold;
+    border: 1px solid #2895F1;
+    background-color: #fff;
+
+}
+
+.logo-link {
+    display: inline-block; /* Connect two logos */
+}
+
+.logo-link img {
+    height: 34px;
+}
+
+.main-wrapper {
+    width: 80%;
+    margin: 0 auto;
+}
