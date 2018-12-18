@@ -26,7 +26,7 @@ ul {
 /* Navigation bar */
 
 .site-header {
-    padding: 1em 0;
+    padding: 1em 0; /* 16px/16px */
     border-bottom: 1px solid #d0d4d9;
     box-shadow: 0 1px 1px #d0d4d9;
 }
@@ -38,8 +38,8 @@ ul {
 }
 
 .trydropbox {
-    height: 34px;
-    padding: 0 20px;
+    height: 2.125em; /* 34px/16px */
+    padding: 0 1.25em; /* 20px/16px */
     border-radius: 10px;
     color: #2895F1;
     font-weight: bold;
@@ -57,20 +57,20 @@ ul {
 }
 
 .logo-link img {
-    height: 34px;
+    height: 2.125em; /* 34px/16px */
 }
 
 /* Welcome image and login form */
 
 .main-wrapper {
-    width: 80%;
+    width: 61.25em; /* 980px/16px */
     margin: 0 auto;
+    max-width: 61.25em; /* 980px/16px */
 }
 
 .login-wrapper {
     width: 80%;
-    margin: 0 auto;
-    padding: 5rem 0;
+    margin: 5em auto;
 }
 
 .main-col {
@@ -78,8 +78,8 @@ ul {
     width: 50%;
     margin-right: -4px;
     vertical-align: top;
-    padding-left: 1em;
-    padding-right: 1em;
+    padding-left: 2em; /* 32px/16px */
+    padding-right: 2em; /* 32px/16px */
 }
 
 .welcome-img img {
@@ -88,8 +88,7 @@ ul {
 }
 
 .form-wrapper {
-    width: 350px;
-    margin: 0 auto;
+    width: 100%;
 }
 
 .login-title div {
@@ -114,7 +113,7 @@ ul {
 }
 
 #signin {
-    padding: 1em;
+    padding: 1em; /* 16px/16px */
 }
 
 .rem-me {
