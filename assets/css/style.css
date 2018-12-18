@@ -117,3 +117,25 @@ ul {
 .text-input {
     width: 100%;
 }
+
+/* Footer */
+
+.footer-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+}
+
+.info-wrapper {
+    display: flex;
+    font-size: 0.925em;
+    font-weight: 100;
+}
+
+.info-col {
+    padding: 0 2em;
+}
+
+.info-col a {
+    color: inherit;
+}
