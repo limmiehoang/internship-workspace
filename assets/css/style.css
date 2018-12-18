@@ -63,23 +63,20 @@ ul {
 /* Welcome image and login form */
 
 .main-wrapper {
-    width: 61.25em; /* 980px/16px */
+    width: 80%; 
     margin: 0 auto;
-    max-width: 61.25em; /* 980px/16px */
+    max-width: 61em;
 }
 
 .login-wrapper {
-    width: 80%;
+    width: 49em; /* 784px/16px */
     margin: 5em auto;
+    display: flex;
 }
 
 .main-col {
-    display: inline-block;
-    width: 50%;
-    margin-right: -4px;
-    vertical-align: top;
-    padding-left: 2em; /* 32px/16px */
-    padding-right: 2em; /* 32px/16px */
+    flex: 1;
+    padding: 0 2em;
 }
 
 .welcome-img img {
@@ -145,4 +142,37 @@ ul {
 
 .info-col a {
     color: inherit;
+}
+
+.languages {
+    margin-bottom: 1em;
+}
+
+@media (max-width: 61em) {
+    .login-wrapper {
+        width: 25em;
+    }
+    .welcome-img {
+        display: none;
+    }
+    .footer-wrapper {
+        flex-direction: column-reverse;
+        align-items: center;
+    }
+}
+
+@media (max-width: 48em) {
+    .welcome-img,
+    .trydropbox,
+    .download,
+    .info-wrapper {
+        display: none;
+    }
+}
+
+@media (max-width: 31em) {
+    .login-wrapper {
+        width: 100%;
+        min-width: 20em;
+    }
 }
