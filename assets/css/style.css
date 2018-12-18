@@ -29,6 +29,7 @@ ul {
     padding: 1em 0; /* 16px/16px */
     border-bottom: 1px solid #d0d4d9;
     box-shadow: 0 1px 1px #d0d4d9;
+    min-width: 20em;
 }
 
 .nav-bar {
@@ -66,6 +67,7 @@ ul {
     width: 80%; 
     margin: 0 auto;
     max-width: 61em;
+    min-width: 18em;
 }
 
 .login-wrapper {
@@ -173,6 +175,5 @@ ul {
 @media (max-width: 31em) {
     .login-wrapper {
         width: 100%;
-        min-width: 20em;
     }
 }
