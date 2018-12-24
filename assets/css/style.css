@@ -90,32 +90,23 @@ ul {
     width: 100%;
 }
 
-.login-title div {
-    display: inline-block;
-}
-
 .row {
     display: flex;
     justify-content: space-between;
     align-items: baseline;
 }
 
-.google-signin button {
+.google-btn button {
     width: 100%;
 }
 
 /* Form */
 
-#remember-me,
-#signin {
-    display: inline-block;
+#cbox {
+    margin-left: 0;
 }
 
-#signin {
-    padding: 1em; /* 16px/16px */
-}
-
-.rem-me {
+.checkbox {
     display: flex;
     align-items: center;
 }
