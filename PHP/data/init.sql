@@ -1,0 +1,50 @@
+DROP DATABASE IF EXISTS product_management;
+CREATE DATABASE product_management;
+
+USE product_management;
+
+CREATE TABLE users (
+  id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  username VARCHAR(50) NOT NULL UNIQUE,
+  password VARCHAR(255) NOT NULL,
+  created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE groups (
+  id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY NOT NULL,
+  group_name NVARCHAR(50) NOT NULL UNIQUE,
+  created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+  updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE roles (
+  id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY NOT NULL,
+  role NVARCHAR(30)
+);
+
+CREATE TABLE users_groups (
+  user_id INT UNSIGNED,
+  group_id INT UNSIGNED,
+  role_id INT UNSIGNED,
+  PRIMARY KEY (user_id, group_id),
+  FOREIGN KEY (user_id) REFERENCES users(id),
+  FOREIGN KEY (group_id) REFERENCES groups(id),
+  FOREIGN KEY (role_id) REFERENCES roles(id)
+);
+
+CREATE TABLE categories (
+  id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY NOT NULL,
+  category NVARCHAR(50)
+);
+
+CREATE TABLE products (
+  id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY NOT NULL,
+  product_name NVARCHAR(100) NOT NULL,
+  category_id INT UNSIGNED,
+  owner_id INT UNSIGNED,
+  description NVARCHAR(500),
+  created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+  updated_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (category_id) REFERENCES categories(id),
+  FOREIGN KEY (owner_id) REFERENCES users(id)
+);
