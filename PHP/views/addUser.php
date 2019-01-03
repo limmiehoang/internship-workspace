@@ -8,7 +8,7 @@ require_once __DIR__ . '/inc/nav.php';
         <div class="well">
             <h2>Add a user</h2>
             <?php // print display_errors(); ?>
-            <form class="form-horizontal" method="post" action="../controllers/addGroup.php">
+            <form class="form-horizontal" method="post" action="../controllers/addUser.php">
                 <?php include __DIR__ . '/inc/userForm.php' ?>
             </form>
         </div>
