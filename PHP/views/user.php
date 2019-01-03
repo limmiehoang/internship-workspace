@@ -14,6 +14,7 @@ require_once __DIR__ . '/inc/nav.php';
                 <th>Username</th>
                 <th>Group</th>
                 <th>Role</th>
+                <th>Promote/Demote</th>
             </tr>
             </thead>
             <tbody>
