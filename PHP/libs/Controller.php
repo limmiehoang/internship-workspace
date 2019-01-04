@@ -12,4 +12,14 @@ class Controller
     {
         $this->view = new View();
     }
+    function request() {
+        return \Symfony\Component\HttpFoundation\Request::createFromGlobals();
+    }
+    function redirect($location) {
+        $response = \Symfony\Component\HttpFoundation\Response::create(null,
+            \Symfony\Component\HttpFoundation\Response::HTTP_FOUND,
+            ['Location' => $location]);
+        $response->send();
+        exit;
+    }
 }
