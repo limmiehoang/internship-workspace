@@ -8,7 +8,7 @@ $host       =   "localhost";
 $username   =   "root";
 $password   =   "";
 $dbname     =   "product_management";
-$dsn        =   "mysql:host = $host; dbname = $dbname";
+$dsn        =   "mysql:host=$host;dbname=$dbname";
 $options    =   array(
                     PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
                 );
