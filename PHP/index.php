@@ -8,7 +8,7 @@ require 'libs/Controller.php';
 require 'libs/View.php';
 require 'libs/connection.php';
 
-$dotenv = new Dotenv\Dotenv(__DIR__);
+$dotenv = \Dotenv\Dotenv::create(__DIR__);
 $dotenv->load();
 
 $app = new Bootstrap();

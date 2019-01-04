@@ -6,6 +6,7 @@ class Product extends Controller
         parent::__construct();
     }
     function index() {
+        $this->requireAuth();
         $this->view->render('product');
     }
 }

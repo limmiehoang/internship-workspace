@@ -6,7 +6,7 @@ class Login extends Controller
         parent::__construct();
     }
     function index() {
-        $this->view->render('login');
+        $this->redirect('/');
     }
     function doLogin() {
         require 'models/User.php';

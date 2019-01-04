@@ -12,9 +12,11 @@ class Controller
     {
         $this->view = new View();
     }
+
     function request() {
         return \Symfony\Component\HttpFoundation\Request::createFromGlobals();
     }
+
     function redirect($location, $extra = []) {
         $response = \Symfony\Component\HttpFoundation\Response::create(null,
             \Symfony\Component\HttpFoundation\Response::HTTP_FOUND,
@@ -26,5 +28,29 @@ class Controller
         }
         $response->send();
         exit;
+    }
+
+    function isAuthenticated() {
+        if (!$this->request()->cookies->has('access_token')) {
+            return false;
+        }
+        try {
+            \Firebase\JWT\JWT::$leeway = 1;
+            \Firebase\JWT\JWT::decode(
+                $this->request()->cookies->get('access_token'),
+                getenv('SECRET_KEY'),
+                ['HS256']
+            );
+            return true;
+        } catch (\Exception $e) {
+            return false;
+        }
+    }
+
+    function requireAuth() {
+        if (!$this->isAuthenticated()) {
+            $accessToken = new Symfony\Component\HttpFoundation\Cookie("access_token", "Expired", time()-3600, '/', getenv('COOKIE_DOMAIN'));
+            $this->redirect('/login', ['cookies' => [$accessToken]]);
+        }
     }
 }

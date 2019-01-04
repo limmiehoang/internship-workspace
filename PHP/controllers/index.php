@@ -6,7 +6,7 @@ class Index extends Controller
         parent::__construct();
     }
     function index() {
-        if ($this->request()->cookies->has('access_token')) {
+        if ($this->isAuthenticated()) {
             $this->view->render('product');
         } else {
             $this->view->render('login');
