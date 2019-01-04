@@ -7,7 +7,7 @@ require_once __DIR__ . '/inc/head.php';
         <div class="login-wrapper">
             <!-- Welcome image -->
             <div class="welcome-img main-col">
-                <img src="views/assets/images/sign-in.png" alt="">
+                <img src="/public/images/sign-in.png" alt="">
             </div>
             <!-- Signup -->
             <div class="main-col">

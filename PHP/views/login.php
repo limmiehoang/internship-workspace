@@ -7,7 +7,7 @@ require_once __DIR__ . '/inc/head.php';
         <div class="login-wrapper">
             <!-- Welcome image -->
             <div class="welcome-img main-col">
-                <img src="views/assets/images/sign-in.png" alt="">
+                <img src="/public/images/sign-in.png" alt="">
             </div>
             <!-- Login -->
             <div class="main-col">
@@ -19,7 +19,7 @@ require_once __DIR__ . '/inc/head.php';
                         </div>
                         <div>
                             or
-                            <a href="/register">create an account</a>
+                            <a href="/register">register</a>
                         </div>
                     </header>
                     <?php //print display_errors(); ?>
