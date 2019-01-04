@@ -1,25 +1,50 @@
 <?php
-$page = 'register';
 require_once __DIR__ . '/inc/head.php';
-require_once __DIR__ . '/inc/nav.php';
 ?>
 
-    <div class="container">
-        <div class="well col-sm-6 col-sm-offset-3">
-            <form class="form-signin" method="post" action="../controllers/doRegister.php">
-                <h2 class="form-signin-heading">Registration</h2>
-                <?php //print display_errors(); ?>
-                <label for="input-username" class="sr-only">Username</label>
-                <input type="username" id="input-username" name="username" class="form-control" placeholder="Username" required autofocus>
-                <br>
-                <label for="input-password" class="sr-only">Password</label>
-                <input type="password" id="input-password" name="password" class="form-control" placeholder="Password" required>
-                <br>
-                <label for="confirm-password" class="sr-only">Confirm Password</label>
-                <input type="password" id="confirm-password" name="confirm_password" class="form-control" placeholder="Confirm Password" required>
-                <br>
-                <button class="btn btn-lg btn-primary btn-block" type="submit">Submit</button>
-            </form>
+    <div class="main-wrapper">
+        <!-- Main -->
+        <div class="login-wrapper">
+            <!-- Welcome image -->
+            <div class="welcome-img main-col">
+                <img src="views/assets/images/sign-in.png" alt="">
+            </div>
+            <!-- Signup -->
+            <div class="main-col">
+                <div class="form-wrapper">
+                    <!-- Title -->
+                    <header class="my-row">
+                        <div>
+                            <h2>Register</h2>
+                        </div>
+                        <div>
+                            or
+                            <a href="/login">log in</a>
+                        </div>
+                    </header>
+                    <!-- Signup form -->
+                    <div>
+                        <form action="" method="POST">
+                            <p><input class="text-input" type="text" id="username" name="username" placeholder="Username" required></p>
+                            <p><input class="text-input" type="password" id="password" name="password" placeholder="Password" required></p>
+                            <p><small>This page is protected by reCAPTCHA, and subject to the Google <a href="">Privacy Policy</a> and <a href="">Terms of service</a>.</small></p>
+                            <div class="submit my-row">
+                                <div class="checkbox"><input type="checkbox" name="agree_terms" id="cbox"><label for="cbox"><span>Agree <a href="">the terms</a>.</span></label></div>
+                                <button class="btn" type="submit">Create an account</button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="or-hr">
+                        or
+                    </div>
+                    <!-- Sign up with google -->
+                    <div class="google-btn">
+                        <button class="btn">
+                            Sign up with Google
+                        </button>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
