@@ -15,10 +15,15 @@ class Controller
     function request() {
         return \Symfony\Component\HttpFoundation\Request::createFromGlobals();
     }
-    function redirect($location) {
+    function redirect($location, $extra = []) {
         $response = \Symfony\Component\HttpFoundation\Response::create(null,
             \Symfony\Component\HttpFoundation\Response::HTTP_FOUND,
             ['Location' => $location]);
+        if (key_exists('cookies', $extra)) {
+            foreach ($extra['cookies'] as $cookie) {
+                $response->headers->setCookie($cookie);
+            }
+        }
         $response->send();
         exit;
     }
