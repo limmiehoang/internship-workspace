@@ -53,4 +53,21 @@ class Controller
             $this->redirect('/login', ['cookies' => [$accessToken]]);
         }
     }
+
+    function display_errors() {
+        global $session;
+
+        if (!$session->getFlashBag()->has('error')) {
+            return;
+        }
+
+        $messages = $session->getFlashBag()->get('error');
+
+        $response = '<div class="alert alert-danger alert-dismissible">';
+        foreach ($messages as $message) {
+            $response .= "{$message}<br/>";
+        }
+        $response .= '</div>';
+        return $response;
+    }
 }

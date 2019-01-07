@@ -11,4 +11,7 @@ require 'libs/connection.php';
 $dotenv = \Dotenv\Dotenv::create(__DIR__);
 $dotenv->load();
 
+$session = new \Symfony\Component\HttpFoundation\Session\Session();
+$session->start();
+
 $app = new Bootstrap();

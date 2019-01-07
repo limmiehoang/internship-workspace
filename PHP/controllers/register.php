@@ -6,23 +6,37 @@ class Register extends Controller
         parent::__construct();
     }
     function index() {
-        $this->view->render('register');
+        $response = $this->display_errors();
+        $this->view->render('register', $response);
     }
     function doRegister() {
+        global $session;
+
         require 'models/User.php';
         $model = new User();
 
-        $username = $this->request()->get('username');
-        $password = $this->request()->get('password');
+        $inputUsername = $this->request()->get('username');
+        $inputUsername = filter_var($inputUsername, FILTER_SANITIZE_STRING);
+        $inputUsername = trim($inputUsername);
 
-        $user = $model->findUserByUsername($username);
-        if (!empty($user)) {
+        $inputPassword = $this->request()->get('password');
+        $inputPassword = filter_var($inputPassword, FILTER_SANITIZE_STRING);
+        $inputPassword = trim($inputPassword);
+
+        if (strlen($inputUsername) < 5 || strlen($inputPassword) < 8) {
+            $session->getFlashBag()->add('error', 'Please fill in required fields with enough characters.');
             $this->redirect('/register');
         }
 
-        $hashed = password_hash($password, PASSWORD_DEFAULT);
+        $user = $model->findUserByUsername($inputUsername);
+        if (!empty($user)) {
+            $session->getFlashBag()->add('error', 'Username already exists.');
+            $this->redirect('/register');
+        }
 
-        $user = $model->createUser($username, $hashed);
+        $hashed = password_hash($inputPassword, PASSWORD_DEFAULT);
+
+        $user = $model->createUser($inputUsername, $hashed);
 
         $this->redirect('/');
     }

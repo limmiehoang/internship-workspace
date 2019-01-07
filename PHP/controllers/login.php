@@ -9,17 +9,25 @@ class Login extends Controller
         $this->redirect('/');
     }
     function doLogin() {
+        global $session;
+
         require 'models/User.php';
         $model = new User();
 
-        $input_username = $this->request()->get('username');
-        $user = $model->findUserByUsername($input_username);
+        $inputUsername = $this->request()->get('username');
+        $inputUsername = filter_var($inputUsername, FILTER_SANITIZE_STRING);
+
+        $user = $model->findUserByUsername($inputUsername);
         if (empty($user)) {
+            $session->getFlashBag()->add('error', 'Wrong username or password!');
             $this->redirect('/login');
         }
 
-        $input_password = $this->request()->get('password');
-        if (!password_verify($input_password, $user['password'])) {
+        $inputPassword = $this->request()->get('password');
+        $inputPassword = filter_var($inputPassword, FILTER_SANITIZE_STRING);
+
+        if (!password_verify($inputPassword, $user['password'])) {
+            $session->getFlashBag()->add('error', 'Wrong username or password!');
             $this->redirect('/login');
         }
 

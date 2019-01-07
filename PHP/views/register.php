@@ -22,15 +22,16 @@ require_once __DIR__ . '/inc/head.php';
                             <a href="/login">log in</a>
                         </div>
                     </header>
+                    <?php echo $data; ?>
                     <!-- Signup form -->
                     <div>
-                        <form action="/register/doRegister" method="POST">
+                        <form id="form" action="/register/doRegister" method="POST">
                             <p><input class="text-input" type="text" id="username" name="username" placeholder="Username" required></p>
                             <p><input class="text-input" type="password" id="password" name="password" placeholder="Password" required></p>
                             <p><small>This page is protected by reCAPTCHA, and subject to the Google <a href="">Privacy Policy</a> and <a href="">Terms of service</a>.</small></p>
                             <div class="submit my-row">
-                                <div class="checkbox"><input type="checkbox" name="agree_terms" id="cbox"><label for="cbox"><span>Agree <a href="">the terms</a>.</span></label></div>
-                                <button class="btn" type="submit">Create an account</button>
+                                <div class="checkbox"><input type="checkbox" name="agree_terms" id="cbox" required><label for="cbox"><span>Accept <a href="">the terms</a>.</span></label></div>
+                                <button id="signup" class="btn" type="submit">Create an account</button>
                             </div>
                         </form>
                     </div>

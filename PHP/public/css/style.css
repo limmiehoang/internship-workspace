@@ -66,6 +66,10 @@ button:hover {
     width: 100%;
 }
 
+#messageBox {
+    display: none;
+}
+
 .my-row {
     display: flex;
     justify-content: space-between;
