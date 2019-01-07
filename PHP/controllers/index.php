@@ -9,7 +9,8 @@ class Index extends Controller
         if ($this->isAuthenticated()) {
             $this->view->render('product');
         } else {
-            $this->view->render('login');
+            $response = $this->display_errors();
+            $this->view->render('login', $response);
         }
     }
 }
