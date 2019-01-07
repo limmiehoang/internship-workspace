@@ -16,7 +16,7 @@
         </ul>
         <ul class="nav navbar-nav navbar-right">
             <li <?php echo ($page == 'register') ? "class='active'" : ""; ?>>
-                <a href="/logout"><span class="glyphicon glyphicon-log-out"></span> Log Out</a>
+                <a href="/logout/doLogout"><span class="glyphicon glyphicon-log-out"></span> Log Out</a>
             </li>
         </ul>
     </div>
