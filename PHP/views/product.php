@@ -1,12 +1,12 @@
 <?php
-$page = 'product';
+$page = 'ProductModel';
 require_once __DIR__ . '/inc/head.php';
 require_once __DIR__ . '/inc/nav.php';
 ?>
 
     <div class="container">
         <h2>Product List</h2>
-        <a href="/PHP/views/addProduct.php" class="btn btn-primary pull-right" role="button">Add a product</a>
+        <a href="/product/add" class="btn btn-primary pull-right" role="button">Add a product</a>
         <table class="table table-hover">
             <thead>
             <tr>
@@ -19,7 +19,11 @@ require_once __DIR__ . '/inc/nav.php';
             </tr>
             </thead>
             <tbody>
-                <?php //put records ?>
+                <?php
+                foreach ($data as $datum) {
+                    include __DIR__ . '/inc/productRecord.php';
+                }
+                ?>
             </tbody>
         </table>
     </div>

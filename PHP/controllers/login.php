@@ -39,7 +39,8 @@ class Login extends Controller
                 'exp' => $expTime,
                 'iat' => time(),
                 'nbf' => time(),
-                'is_admin' => true
+                'role' => 1,
+                'group' => 1,
                 ], getenv("SECRET_KEY"), 'HS256');
 
         $accessToken = new Symfony\Component\HttpFoundation\Cookie('access_token', $jwt, $expTime, '/', getenv('COOKIE_DOMAIN'));

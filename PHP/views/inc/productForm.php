@@ -7,15 +7,15 @@
 <div class="form-group">
     <label for="category" class="col-sm-2 control-label">Category</label>
     <div class="col-sm-10">
-        <select class="form-control" id="category">
-            <?php //put options ?>
+        <select class="form-control" id="category" name="category">
+            <?php echo $data['categories']; ?>
         </select>
     </div>
 </div>
 <div class="form-group">
     <label for="description" class="col-sm-2 control-label">Description</label>
     <div class="col-sm-10">
-        <textarea name="description" class="form-control" rows="5" placeholder="Description of the product"></textarea>
+        <textarea id="description" name="description" class="form-control" rows="5" placeholder="Description of the product"></textarea>
     </div>
 </div>
 <div class="form-group">

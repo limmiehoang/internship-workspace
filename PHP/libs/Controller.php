@@ -30,17 +30,27 @@ class Controller
         exit;
     }
 
+    function decodeJwt($prop = null) {
+        \Firebase\JWT\JWT::$leeway = 1;
+        $jwt = \Firebase\JWT\JWT::decode(
+            $this->request()->cookies->get('access_token'),
+            getenv('SECRET_KEY'),
+            ['HS256']
+        );
+
+        if ($prop === null) {
+            return $jwt;
+        }
+
+        return $jwt->{$prop};
+    }
+
     function isAuthenticated() {
         if (!$this->request()->cookies->has('access_token')) {
             return false;
         }
         try {
-            \Firebase\JWT\JWT::$leeway = 1;
-            \Firebase\JWT\JWT::decode(
-                $this->request()->cookies->get('access_token'),
-                getenv('SECRET_KEY'),
-                ['HS256']
-            );
+            $this->decodeJwt();
             return true;
         } catch (\Exception $e) {
             return false;
@@ -52,6 +62,64 @@ class Controller
             $accessToken = new Symfony\Component\HttpFoundation\Cookie("access_token", "Expired", time()-3600, '/', getenv('COOKIE_DOMAIN'));
             $this->redirect('/login', ['cookies' => [$accessToken]]);
         }
+    }
+
+    function requireAdmin() {
+        if (!$this->isAuthenticated()) {
+            $accessToken = new Symfony\Component\HttpFoundation\Cookie("access_token", "Expired", time()-3600, '/', getenv('COOKIE_DOMAIN'));
+            $this->redirect('/login', ['cookies' => [$accessToken]]);
+        }
+        try {
+            if (!$this->decodeJwt('role') === 0) {
+                $this->redirect('/');
+            }
+        } catch (\Exception $e) {
+            $accessToken = new Symfony\Component\HttpFoundation\Cookie("access_token", "Expired", time()-3600, '/', getenv('COOKIE_DOMAIN'));
+            $this->redirect('/login', ['cookies' => [$accessToken]]);
+        }
+    }
+
+    function isAdmin() {
+        if (!$this->isAuthenticated()) {
+            return false;
+        }
+
+        try {
+            return ($this->decodeJwt('role') == 1);
+        } catch (\Exception $e) {
+            return false;
+        }
+    }
+
+    function isLeader($groupId) {
+        if (!$this->isAuthenticated()) {
+            return false;
+        }
+
+        try {
+            if (!$this->decodeJwt('role') == 2) {
+                return false;
+            }
+            $groupLeading = $this->decodeJwt('group');
+        } catch (\Exception $e) {
+            return false;
+        }
+
+        return $groupId == $groupLeading;
+    }
+
+    function isOwner($ownerId) {
+        if (!$this->isAuthenticated()) {
+            return false;
+        }
+
+        try {
+            $userId = $this->decodeJwt('sub');
+        } catch (\Exception $e) {
+            return false;
+        }
+
+        return $ownerId == $userId;
     }
 
     function display_errors() {
@@ -68,6 +136,19 @@ class Controller
             $response .= "{$message}<br/>";
         }
         $response .= '</div>';
+        return $response;
+    }
+
+    function display_categories() {
+        require 'models/Category.php';
+        $model = new Category();
+
+        $categories = $model->getAllCategories();
+
+        $response = "";
+        foreach ($categories as $category) {
+            $response .= "<option value='" . strval($category['id']) . "'>" . strval($category['category']) . "</option>";
+        }
         return $response;
     }
 }

@@ -7,7 +7,7 @@ class Index extends Controller
     }
     function index() {
         if ($this->isAuthenticated()) {
-            $this->view->render('product');
+            $this->redirect('/product');
         } else {
             $response = $this->display_errors();
             $this->view->render('login', $response);

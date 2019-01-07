@@ -6,6 +6,7 @@ class User extends Controller
         parent::__construct();
     }
     function index() {
+        $this->requireAdmin();
         $this->view->render('user');
     }
 }
