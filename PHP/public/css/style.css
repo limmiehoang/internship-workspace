@@ -120,6 +120,37 @@ button:hover {
     margin-right: -50%;
 }
 
+.role1:after {
+    content: "Admin";
+    color: #fff;
+    font-size: 10px;
+    background-color: firebrick;
+    padding: 3px 6px;
+    margin-left: 5px;
+    border-radius: 3px;
+}
+
+.role2:after {
+    content: "Leader";
+    color: #fff;
+    font-size: 10px;
+    background-color: cornflowerblue;
+    padding: 3px 6px;
+    margin-left: 5px;
+    border-radius: 3px;
+}
+
+.role3:after {
+    content: "Member";
+    color: #fff;
+    font-size: 10px;
+    background-color: gray;
+    padding: 3px 6px;
+    margin-left: 5px;
+    margin-bottom: 5px;
+    border-radius: 3px;
+}
+
 @media (max-width: 61em) {
     .login-wrapper {
         width: 25em;
