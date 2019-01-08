@@ -15,7 +15,6 @@ class Login extends Controller
         $model = new User();
 
         $inputUsername = $this->request()->get('username');
-        $inputUsername = filter_var($inputUsername, FILTER_SANITIZE_STRING);
 
         $user = $model->findUserByUsername($inputUsername);
         if (empty($user)) {
@@ -24,7 +23,6 @@ class Login extends Controller
         }
 
         $inputPassword = $this->request()->get('password');
-        $inputPassword = filter_var($inputPassword, FILTER_SANITIZE_STRING);
 
         if (!password_verify($inputPassword, $user['password'])) {
             $session->getFlashBag()->add('error', 'Wrong username or password!');
@@ -32,15 +30,14 @@ class Login extends Controller
         }
 
         $expTime = time() + 3600; // 1 hour
-
         $jwt = \Firebase\JWT\JWT::encode([
                 'iss' => $this->request()->getBaseUrl(),
                 'sub' => "{$user['id']}",
                 'exp' => $expTime,
                 'iat' => time(),
                 'nbf' => time(),
-                'role' => 1,
-                'group' => 1,
+                'role' => "{$user['role_id']}",
+                'group' => "{$user['group_id']}",
                 ], getenv("SECRET_KEY"), 'HS256');
 
         $accessToken = new Symfony\Component\HttpFoundation\Cookie('access_token', $jwt, $expTime, '/', getenv('COOKIE_DOMAIN'));

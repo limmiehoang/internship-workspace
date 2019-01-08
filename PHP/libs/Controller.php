@@ -97,7 +97,7 @@ class Controller
         }
 
         try {
-            if (!$this->decodeJwt('role') == 2) {
+            if ($this->decodeJwt('role') != 2) {
                 return false;
             }
             $groupLeading = $this->decodeJwt('group');
@@ -122,6 +122,24 @@ class Controller
         return $ownerId == $userId;
     }
 
+    function isAuthorized($groupId, $ownerId) {
+        if ($this->isAdmin() || $this->isLeader($groupId) || $this->isOwner($ownerId)) {
+            return true;
+        }
+        return false;
+    }
+
+    function requireAuthorization($itemId, $model) {
+        $this->requireAuth();
+        $item = $model->findProductById($itemId);
+
+        if ($this->isAuthorized($item['group_id'], $item['owner_id'])) {
+            return $item;
+        };
+
+        $this->redirect('/');
+    }
+
     function display_errors() {
         global $session;
 
@@ -139,16 +157,10 @@ class Controller
         return $response;
     }
 
-    function display_categories() {
+    function get_categories() {
         require 'models/Category.php';
         $model = new Category();
 
-        $categories = $model->getAllCategories();
-
-        $response = "";
-        foreach ($categories as $category) {
-            $response .= "<option value='" . strval($category['id']) . "'>" . strval($category['category']) . "</option>";
-        }
-        return $response;
+        return $model->getAllCategories();
     }
 }

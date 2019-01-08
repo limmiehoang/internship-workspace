@@ -28,7 +28,7 @@ class ProductModel
         global $db;
 
         try {
-            $query = "SELECT products.id, product_name, username, category, group_name FROM products
+            $query = "SELECT products.id, product_name, owner_id, username, category, groups.id AS group_id, group_name FROM products
                       LEFT JOIN users ON users.id = products.owner_id
                       LEFT JOIN categories ON categories.id = products.category_id
                       LEFT JOIN users_groups on users_groups.user_id = users.id
@@ -51,6 +51,38 @@ class ProductModel
             $stmt->bindParam(':productId', $productId);
             $stmt->execute();
             return $stmt->fetch(PDO::FETCH_ASSOC);
+        } catch (\Exception $e) {
+            throw $e;
+        }
+    }
+
+    public function editProduct($productId, $productName, $categoryId, $description) {
+        global $db;
+
+        try {
+            $query = "UPDATE products SET product_name = :productName, category_id = :categoryId, description = :description
+                      WHERE id = :productId";
+            $stmt = $db->prepare($query);
+            $stmt->bindParam(':productName', $productName);
+            $stmt->bindParam(':categoryId', $categoryId);
+            $stmt->bindParam(':description', $description);
+            $stmt->bindParam(':productId', $productId);
+            return $stmt->execute();
+
+        } catch (\Exception $e) {
+            throw $e;
+        }
+    }
+
+    public function removeProduct($productId) {
+        global $db;
+
+        try {
+            $query = "DELETE FROM products WHERE id = ?";
+            $stmt = $db->prepare($query);
+            $stmt->bindParam(1, $productId);
+            return $stmt->execute();
+
         } catch (\Exception $e) {
             throw $e;
         }

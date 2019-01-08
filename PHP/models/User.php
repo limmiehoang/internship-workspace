@@ -10,7 +10,9 @@ class User
         global $db;
 
         try {
-            $query = "SELECT * FROM users WHERE username = :username";
+            $query = "SELECT users.id, username, password, group_id, role_id FROM users
+                      LEFT JOIN users_groups ON users_groups.user_id = users.id
+                      WHERE username = :username";
             $stmt = $db->prepare($query);
             $stmt->bindParam(':username', $username);
             $stmt->execute();

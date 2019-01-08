@@ -30,3 +30,9 @@ $('#form').validate({
         form.submit()
     }
 });
+
+$(".del").click(function(){
+    if (!confirm("Do you want to delete?")){
+        return false;
+    }
+});

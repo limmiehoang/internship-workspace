@@ -14,18 +14,15 @@ class Product extends Controller
     }
     function add() {
         $this->requireAuth();
-        $data['categories'] = $this->display_categories();
+        $data['categories'] = $this->get_categories();
         $this->view->render('addProduct', $data);
     }
     function addProduct() {
         $productName = $this->request()->get('product_name');
-        $productName = filter_var($productName, FILTER_SANITIZE_STRING);
 
         $category = $this->request()->get('category');
-        $category = filter_var($category, FILTER_SANITIZE_STRING);
 
         $description = $this->request()->get('description');
-        $description = filter_var($description, FILTER_SANITIZE_STRING);
 
         $ownerId = $this->decodeJwt('sub');
 
@@ -37,14 +34,37 @@ class Product extends Controller
         }
     }
     function edit($itemId) {
-        $this->requireAuth();
-        $item = $this->model->findProductById($itemId);
+        $item = $this->requireAuthorization($itemId, $this->model);
 
-        if ($this->isOwner($item['owner_id'])) {
-            $data['categories'] = $this->display_categories();
-            $this->view->render('addProduct', $data);
-            return;
+        $data['categories'] = $this->get_categories();
+        $data['item'] = $item;
+        $this->view->render('editProduct', $data);
+    }
+    function editProduct($itemId) {
+        $this->requireAuthorization($itemId, $this->model);
+
+        $productName = $this->request()->get('product_name');
+
+        $category = $this->request()->get('category');
+
+        $description = $this->request()->get('description');
+
+        try {
+            $this->model->editProduct($itemId, $productName, $category, $description);
+            $this->redirect('/product');
+        } catch (\Exception $e) {
+            $this->redirect("/product/edit/$itemId");
         }
-        $this->redirect('/');
+    }
+    function remove($itemId) {
+        $this->requireAuthorization($itemId, $this->model);
+
+        try {
+            $this->model->removeProduct($itemId);
+            echo "OK";
+        } catch (\Exception $e) {
+            echo $e;
+        }
+//        $this->redirect('/product');
     }
 }
