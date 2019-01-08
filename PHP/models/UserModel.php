@@ -22,13 +22,28 @@ class UserModel
         global $db;
 
         try {
-            $query = "INSERT INTO users (username, password)"
-                . "VALUES (:username, :password)";
+            $query = "INSERT INTO users (username, password)
+                      VALUES (:username, :password)";
             $stmt = $db->prepare($query);
             $stmt->bindParam(':username', $username);
             $stmt->bindParam(':password', $password);
             $stmt->execute();
             return $this->findUserByUsername($username);
+        } catch (\Exception $e) {
+            throw $e;
+        }
+    }
+
+    public function getAllNonGroupUsers() {
+        global $db;
+
+        try {
+            $query = "SELECT users.id, username FROM users
+                      LEFT JOIN users_groups ON users_groups.user_id = users.id
+                      WHERE users_groups.user_id IS NULL";
+            $stmt = $db->prepare($query);
+            $stmt->execute();
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
         } catch (\Exception $e) {
             throw $e;
         }

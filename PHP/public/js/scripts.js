@@ -36,3 +36,12 @@ $(".del").click(function(){
         return false;
     }
 });
+
+$("#leader").change(function () {
+    $(":checkbox").each(function (){
+        $(this).removeAttr("disabled");
+    });
+    $selected_user = $("#leader option:selected").val();
+    $checkbox = $(`:checkbox[value=${$selected_user}]`);
+    $checkbox.attr("disabled", "true");
+});
