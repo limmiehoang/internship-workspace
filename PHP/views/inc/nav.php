@@ -4,7 +4,7 @@
             <a class="navbar-brand" href="#">Product Management</a>
         </div>
         <ul class="nav navbar-nav">
-            <li <?php echo ($page == 'ProductModel') ? "class='active'" : ""; ?>>
+            <li <?php echo ($page == 'product') ? "class='active'" : ""; ?>>
                 <a href="/product">Product</a>
             </li>
             <li <?php echo ($page == 'group') ? "class='active'" : ""; ?>>
