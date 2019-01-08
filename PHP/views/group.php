@@ -6,7 +6,7 @@ require_once __DIR__ . '/inc/nav.php';
 
     <div class="container">
         <h2>Group List</h2>
-        <a href="/PHP/views/addGroup.php" class="btn btn-primary pull-right" role="button">Add a group</a>
+        <a href="/group/add" class="btn btn-primary pull-right" role="button">Add a group</a>
         <table class="table table-hover">
             <thead>
             <tr>
@@ -14,11 +14,15 @@ require_once __DIR__ . '/inc/nav.php';
                 <th>Group</th>
                 <th>Leader</th>
                 <th>Members</th>
-                <th>Action</th>
+                <th class="center-align">Action</th>
             </tr>
             </thead>
             <tbody>
-                <?php //put records ?>
+            <?php
+            foreach ($data as $datum) {
+                include __DIR__ . '/inc/groupRecord.php';
+            }
+            ?>
             </tbody>
         </table>
     </div>
