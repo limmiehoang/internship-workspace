@@ -70,7 +70,7 @@ class Controller
             $this->redirect('/login', ['cookies' => [$accessToken]]);
         }
         try {
-            if (!$this->decodeJwt('role') === 0) {
+            if ($this->decodeJwt('role') != 1) {
                 $this->redirect('/');
             }
         } catch (\Exception $e) {
