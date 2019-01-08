@@ -29,6 +29,7 @@ class Login extends Controller
             $this->redirect('/login');
         }
 
+        $session->set('username', $user['username']);
         $expTime = time() + 3600; // 1 hour
         $jwt = \Firebase\JWT\JWT::encode([
                 'iss' => $this->request()->getBaseUrl(),

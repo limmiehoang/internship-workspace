@@ -15,6 +15,9 @@
             </li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
+            <li>
+                <a>Hello, <strong><?php global $session; echo htmlspecialchars($session->get('username')); ?></strong></a>
+            </li>
             <li <?php echo ($page == 'register') ? "class='active'" : ""; ?>>
                 <a href="/logout/doLogout"><span class="glyphicon glyphicon-log-out"></span> Log Out</a>
             </li>
