@@ -10,6 +10,10 @@ class Product extends Controller
     function index() {
         $this->requireAuth();
         $products = $this->model->getAllProducts();
+        foreach ($products as &$product) {
+            $product['write_permission'] = $this->isAuthorized($product['group_id'], $product['owner_id']);
+        }
+        unset($product);
         $this->view->render('product', $products);
     }
     function add() {

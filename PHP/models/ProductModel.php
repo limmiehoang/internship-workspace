@@ -33,7 +33,9 @@ class ProductModel
                       LEFT JOIN categories ON categories.id = products.category_id
                       LEFT JOIN users_groups on users_groups.user_id = users.id
                       LEFT JOIN groups ON groups.id = users_groups.group_id";
-            return $db->query($query, PDO::FETCH_ASSOC);
+            $stmt = $db->prepare($query);
+            $stmt->execute();
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
         } catch (\Exception $e) {
             throw $e;
         }

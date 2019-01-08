@@ -80,7 +80,7 @@ button:hover {
     width: 100%;
 }
 
-/* Form */
+/* Login Form */
 
 #cbox {
     margin-left: 0;
@@ -120,6 +120,12 @@ button:hover {
     margin-right: -50%;
 }
 
+/* Product List */
+
+.center-align {
+    text-align: center;
+}
+
 .role1:after {
     content: "Admin";
     color: #fff;
@@ -149,6 +155,10 @@ button:hover {
     margin-left: 5px;
     margin-bottom: 5px;
     border-radius: 3px;
+}
+
+.action a+a {
+    padding-left: 5px;
 }
 
 @media (max-width: 61em) {
