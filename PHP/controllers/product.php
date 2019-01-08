@@ -9,19 +9,32 @@ class Product extends Controller
     }
     function index() {
         $this->requireAuth();
-        $products = $this->model->getAllProducts();
-        foreach ($products as &$product) {
-            $product['write_permission'] = $this->isAuthorized($product['group_id'], $product['owner_id']);
+
+        try {
+            $products = $this->model->getAllProducts();
+            foreach ($products as &$product) {
+                $product['write_permission'] = $this->isAuthorized($product['group_id'], $product['owner_id']);
+            }
+            unset($product);
+            $this->view->render('product', $products);
+        } catch (\Exception $e) {
+            $this->redirect('/error');
         }
-        unset($product);
-        $this->view->render('product', $products);
+
     }
     function add() {
         $this->requireAuth();
-        $data['categories'] = $this->get_categories();
-        $this->view->render('addProduct', $data);
+
+        try {
+            $data['categories'] = $this->get_categories();
+            $this->view->render('addProduct', $data);
+        } catch (\Exception $e) {
+            $this->redirect('/error');
+        }
     }
     function addProduct() {
+        $this->requireAuth();
+
         $productName = $this->request()->get('product_name');
 
         $category = $this->request()->get('category');
