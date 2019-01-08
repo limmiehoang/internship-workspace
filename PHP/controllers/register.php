@@ -12,8 +12,8 @@ class Register extends Controller
     function doRegister() {
         global $session;
 
-        require 'models/User.php';
-        $model = new User();
+        require 'models/UserModel.php';
+        $model = new UserModel();
 
         $inputUsername = $this->request()->get('username');
         $inputUsername = filter_var($inputUsername, FILTER_SANITIZE_STRING);

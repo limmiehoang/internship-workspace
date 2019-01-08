@@ -158,8 +158,8 @@ class Controller
     }
 
     function get_categories() {
-        require 'models/Category.php';
-        $model = new Category();
+        require 'models/CategoryModel.php';
+        $model = new CategoryModel();
 
         return $model->getAllCategories();
     }

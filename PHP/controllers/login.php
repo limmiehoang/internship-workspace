@@ -11,8 +11,8 @@ class Login extends Controller
     function doLogin() {
         global $session;
 
-        require 'models/User.php';
-        $model = new User();
+        require 'models/UserModel.php';
+        $model = new UserModel();
 
         $inputUsername = $this->request()->get('username');
 

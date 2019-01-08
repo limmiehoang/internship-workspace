@@ -1,11 +1,7 @@
 <?php
 
-class User
+class UserModel
 {
-    public function __construct() {
-
-    }
-
     public function findUserByUsername($username) {
         global $db;
 

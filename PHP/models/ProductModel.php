@@ -2,10 +2,6 @@
 
 class ProductModel
 {
-    public function __construct() {
-
-    }
-
     public function addProduct($productName, $categoryId, $ownerId, $description) {
         global $db;
 
