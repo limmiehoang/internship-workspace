@@ -52,7 +52,7 @@ class Group extends Controller
             $session->getFlashBag()->add('success', 'Record added successfully.');
             $this->redirect('/group');
         } catch (\Exception $e) {
-            $session->getFlashBag()->add('error', 'Cannot add record. Please try again!');
+            $session->getFlashBag()->add('error', 'Cannot add record. Please check if group name already exists.');
             $this->redirect('/group/add');
         }
     }
