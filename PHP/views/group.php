@@ -15,7 +15,6 @@ require_once __DIR__ . '/inc/nav.php';
                 <th>Group</th>
                 <th>Leader</th>
                 <th class="center-align">Members</th>
-                <th class="center-align">Action</th>
             </tr>
             </thead>
             <tbody>

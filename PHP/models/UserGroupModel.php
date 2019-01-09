@@ -31,4 +31,38 @@ class UserGroupModel
             throw $e;
         }
     }
+
+    public function findLeaderByGroupId($groupId) {
+        global $db;
+
+        try {
+            $query = "SELECT users.id, username FROM users_groups
+                      JOIN users ON users.id = users_groups.user_id
+                      WHERE group_id = :groupId AND role_id = 2";
+            $stmt = $db->prepare($query);
+            $stmt->bindParam(':groupId', $groupId);
+            $stmt->execute();
+            return $stmt->fetch(PDO::FETCH_ASSOC);
+
+        } catch (\Exception $e) {
+            throw $e;
+        }
+    }
+
+    public function findMembersByGroupId($groupId) {
+        global $db;
+
+        try {
+            $query = "SELECT users.id, username FROM users_groups
+                      JOIN users ON users.id = users_groups.user_id
+                      WHERE group_id = :groupId AND role_id = 3";
+            $stmt = $db->prepare($query);
+            $stmt->bindParam(':groupId', $groupId);
+            $stmt->execute();
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        } catch (\Exception $e) {
+            throw $e;
+        }
+    }
 }

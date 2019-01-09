@@ -56,4 +56,17 @@ class Group extends Controller
             $this->redirect('/group/add');
         }
     }
+    function detail($groupId) {
+        require 'models/UserGroupModel.php';
+        $userGroupModel = new UserGroupModel();
+
+        $data['group'] = $this->model->findGroupById($groupId);
+
+        $data['leader'] = $userGroupModel->findLeaderByGroupId($groupId);
+
+        $data['members'] = $userGroupModel->findMembersByGroupId($groupId);
+
+        $data['messages'] = $this->display_messages();
+        $this->view->render('groupDetail', $data);
+    }
 }

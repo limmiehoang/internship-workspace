@@ -161,6 +161,20 @@ button:hover {
     padding-left: 5px;
 }
 
+/* Group Detail */
+
+.user-bullet li:before
+{
+    /*Using a Bootstrap glyphicon as the bullet point*/
+    content: "\e008";
+    font-family: 'Glyphicons Halflings';
+    font-size: 10px;
+    float: left;
+    margin-top: 4px;
+    margin-right: 4px;
+    color: #CCCCCC;
+}
+
 @media (max-width: 61em) {
     .login-wrapper {
         width: 25em;

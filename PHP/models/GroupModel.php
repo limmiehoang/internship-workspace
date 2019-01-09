@@ -33,4 +33,20 @@ class GroupModel
             throw $e;
         }
     }
+
+    public function findGroupById($groupId) {
+        global $db;
+
+        try {
+            $query = "SELECT * FROM groups
+                      WHERE id = :groupId";
+            $stmt = $db->prepare($query);
+            $stmt->bindParam(':groupId', $groupId);
+            $stmt->execute();
+            return $stmt->fetch(PDO::FETCH_ASSOC);
+
+        } catch (\Exception $e) {
+            throw $e;
+        }
+    }
 }
