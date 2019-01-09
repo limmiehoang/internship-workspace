@@ -13,7 +13,7 @@ require_once __DIR__ . '/inc/nav.php';
                 <th>Id</th>
                 <th>Group</th>
                 <th>Leader</th>
-                <th>Members</th>
+                <th class="center-align">Members</th>
                 <th class="center-align">Action</th>
             </tr>
             </thead>
