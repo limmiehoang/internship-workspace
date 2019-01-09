@@ -1,4 +1,4 @@
-$('#form').validate({
+$('.login-form').validate({
     onfocusout: false,
     rules: {
         username: {
@@ -24,6 +24,38 @@ $('#form').validate({
         }
         else {
             error.insertAfter(element);
+        }
+    },
+    submitHandler: function (form) {
+        form.submit()
+    }
+});
+
+$('#product-form').validate({
+    onfocusout: false,
+    rules: {
+        product_name: {
+            required: true,
+            minlength: 5
+        },
+        category: {
+            required: true,
+        }
+    },
+    submitHandler: function (form) {
+        form.submit()
+    }
+});
+
+$('#group-form').validate({
+    onfocusout: false,
+    rules: {
+        group_name: {
+            required: true,
+            minlength: 5
+        },
+        leader: {
+            required: true,
         }
     },
     submitHandler: function (form) {

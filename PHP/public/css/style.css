@@ -37,6 +37,10 @@ button:hover {
     margin: .5em 0;
 }
 
+.error {
+    color: red;
+}
+
 /* Welcome image and login form */
 
 .main-wrapper {

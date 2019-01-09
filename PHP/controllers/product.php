@@ -40,15 +40,22 @@ class Product extends Controller
         $this->requireAuth();
 
         $productName = $this->request()->get('product_name');
+        $productName = trim($productName);
 
         $category = $this->request()->get('category');
 
         $description = $this->request()->get('description');
+        $description = trim($description);
 
         $ownerId = $this->decodeJwt('sub');
 
+        if (strlen($productName) < 5 || !isset($category)) {
+            $session->getFlashBag()->add('error', 'Please fill in required fields.');
+            $this->redirect('/product/add');
+        }
+
         try {
-            $newProduct = $this->model->addProduct($productName, $category, $ownerId, $description);
+            $this->model->addProduct($productName, $category, $ownerId, $description);
             $session->getFlashBag()->add('success', 'Record added successfully.');
             $this->redirect('/product');
         } catch (\Exception $e) {
@@ -61,6 +68,7 @@ class Product extends Controller
 
         $data['categories'] = $this->get_categories();
         $data['item'] = $item;
+        $data['messages'] = $this->display_messages();
         $this->view->render('editProduct', $data);
     }
     function editProduct($itemId) {
@@ -69,10 +77,17 @@ class Product extends Controller
         $this->requireAuthorization($itemId, $this->model);
 
         $productName = $this->request()->get('product_name');
+        $productName = trim($productName);
 
         $category = $this->request()->get('category');
 
         $description = $this->request()->get('description');
+        $description = trim($description);
+
+        if (strlen($productName) < 5 || !isset($category)) {
+            $session->getFlashBag()->add('error', 'Please fill in required fields.');
+            $this->redirect("/product/edit/$itemId");
+        }
 
         try {
             $this->model->editProduct($itemId, $productName, $category, $description);

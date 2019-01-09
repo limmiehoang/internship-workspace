@@ -25,7 +25,7 @@ require_once __DIR__ . '/inc/head.php';
                     <?php echo $data; ?>
                     <!-- Signup form -->
                     <div>
-                        <form id="form" action="/register/doRegister" method="POST">
+                        <form class="login-form" action="/register/doRegister" method="POST">
                             <p><input class="text-input" type="text" id="username" name="username" placeholder="Username" required></p>
                             <p><input class="text-input" type="password" id="password" name="password" placeholder="Password" required></p>
                             <p><small>This page is protected by reCAPTCHA, and subject to the Google <a href="">Privacy Policy</a> and <a href="">Terms of service</a>.</small></p>

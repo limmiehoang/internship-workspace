@@ -7,8 +7,9 @@ require_once __DIR__ . '/inc/nav.php';
     <div class="container">
         <div class="well">
             <h2>Add a product</h2>
-            <?php echo $data['messages'] ?>
-            <form class="form-horizontal" method="post" action="/product/addProduct" autocomplete="off">
+            <p><em>(*) This field is required</em></p>
+            <?php echo $data['messages']; ?>
+            <form id="product-form" class="form-horizontal" method="post" action="/product/addProduct" autocomplete="off">
                 <?php include __DIR__ . '/inc/productForm.php' ?>
                 <div class="form-group">
                     <div class="col-sm-offset-2 col-sm-10">

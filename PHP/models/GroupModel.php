@@ -49,4 +49,20 @@ class GroupModel
             throw $e;
         }
     }
+
+    public function findGroupByName($groupname) {
+        global $db;
+
+        try {
+            $query = "SELECT * FROM groups
+                      WHERE group_name = :groupName";
+            $stmt = $db->prepare($query);
+            $stmt->bindParam(':groupName', $groupName);
+            $stmt->execute();
+            return $stmt->fetch(PDO::FETCH_ASSOC);
+
+        } catch (\Exception $e) {
+            throw $e;
+        }
+    }
 }

@@ -34,7 +34,7 @@ require_once __DIR__ . '/inc/head.php';
                     </div>
                     <!-- Signin form -->
                     <div>
-                        <form id="form" action="/login/doLogin" method="POST">
+                        <form class="login-form" action="/login/doLogin" method="POST">
                             <p><input class="text-input" type="text" id="username" name="username" placeholder="Username" required></p>
                             <p><input class="text-input" type="password" id="password" name="password" placeholder="Password" required></p>
                             <p><small>This page is protected by reCAPTCHA, and subject to the Google <a href="">Privacy Policy</a> and <a href="">Terms of service</a>.</small></p>

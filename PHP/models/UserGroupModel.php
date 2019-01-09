@@ -65,4 +65,20 @@ class UserGroupModel
             throw $e;
         }
     }
+
+    public function findGroupByUserId($userId) {
+        global $db;
+
+        try {
+            $query = "SELECT * FROM users_groups
+                      WHERE user_id = :userId";
+            $stmt = $db->prepare($query);
+            $stmt->bindParam(':userId', $userId);
+            $stmt->execute();
+            return $stmt->fetch(PDO::FETCH_ASSOC);
+
+        } catch (\Exception $e) {
+            throw $e;
+        }
+    }
 }

@@ -1,12 +1,13 @@
 <div class="form-group">
-    <label for="product-name" class="col-sm-2 control-label">Name your product</label>
+    <label for="product-name" class="col-sm-2 control-label">Name your product (*)</label>
     <div class="col-sm-10">
-        <input type="text" class="form-control" id="product-name" name="product_name" placeholder="Product Name"
-               value="<?php echo (isset($data['item'])) ? htmlspecialchars($data['item']['product_name']) : ''?>">
+        <input  type="text" class="form-control" id="product-name" name="product_name" placeholder="Product Name"
+                value="<?php echo (isset($data['item'])) ? htmlspecialchars($data['item']['product_name']) : ''?>"
+                required>
     </div>
 </div>
 <div class="form-group">
-    <label for="category" class="col-sm-2 control-label">Category</label>
+    <label for="category" class="col-sm-2 control-label">Category (*)</label>
     <div class="col-sm-10">
         <select class="form-control" id="category" name="category">
             <?php foreach ($data['categories'] as $category) { ?>
