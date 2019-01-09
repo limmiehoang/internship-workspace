@@ -8,7 +8,7 @@ require_once __DIR__ . '/inc/nav.php';
         <div class="well">
             <h2>Edit a product</h2>
             <?php // print display_errors(); ?>
-            <form class="form-horizontal" method="post" action="/product/editProduct/<?php echo $data['item']['id']?>">
+            <form class="form-horizontal" method="post" action="/product/editProduct/<?php echo $data['item']['id']?>" autocomplete="off">
                 <?php include __DIR__ . '/inc/productForm.php' ?>
                 <div class="form-group">
                     <div class="col-sm-offset-2 col-sm-10">
