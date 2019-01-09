@@ -8,7 +8,7 @@
         <a href="">Detail</a>
         <?php if ($datum['write_permission']) { ?>
         <a href="/product/edit/<?php echo $datum['id']?>">Edit</a>
-        <a class="del" href="/product/remove/<?php echo $datum['id']?>">Remove</a>
+        <a class="del" href="/product/remove/<?php echo $datum['id']?>">Delete</a>
         <?php } ?>
     </td>
 </tr>
