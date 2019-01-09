@@ -37,8 +37,22 @@ class Register extends Controller
         $hashed = password_hash($inputPassword, PASSWORD_DEFAULT);
 
         $user = $model->createUser($inputUsername, $hashed);
-        $session->getFlashBag()->add('success', 'You have been successfully registered.');
 
-        $this->redirect('/');
+        $session->set('username', $user['username']);
+        $expTime = time() + 3600; // 1 hour
+        $jwt = \Firebase\JWT\JWT::encode([
+            'iss' => $this->request()->getBaseUrl(),
+            'sub' => "{$user['id']}",
+            'exp' => $expTime,
+            'iat' => time(),
+            'nbf' => time(),
+            'role' => "{$user['role_id']}",
+            'group' => "{$user['group_id']}",
+        ], getenv("SECRET_KEY"), 'HS256');
+
+        $accessToken = new Symfony\Component\HttpFoundation\Cookie('access_token', $jwt, $expTime, '/', getenv('COOKIE_DOMAIN'));
+
+        $session->getFlashBag()->add('success', 'You have successfully registered and logged in.');
+        $this->redirect('/', ['cookies' => [$accessToken]]);
     }
 }
