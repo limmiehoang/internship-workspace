@@ -42,6 +42,7 @@ class Login extends Controller
                 ], getenv("SECRET_KEY"), 'HS256');
 
         $accessToken = new Symfony\Component\HttpFoundation\Cookie('access_token', $jwt, $expTime, '/', getenv('COOKIE_DOMAIN'));
+        $session->getFlashBag()->add('success', 'You have just logged in.');
         $this->redirect('/', ['cookies' => [$accessToken]]);
     }
 }

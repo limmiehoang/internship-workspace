@@ -65,12 +65,15 @@ class Controller
     }
 
     function requireAdmin() {
+        global $session;
+
         if (!$this->isAuthenticated()) {
             $accessToken = new Symfony\Component\HttpFoundation\Cookie("access_token", "Expired", time()-3600, '/', getenv('COOKIE_DOMAIN'));
             $this->redirect('/login', ['cookies' => [$accessToken]]);
         }
         try {
             if ($this->decodeJwt('role') != 1) {
+                $session->getFlashBag()->add('error', 'You are not authorized to access this page.');
                 $this->redirect('/');
             }
         } catch (\Exception $e) {
@@ -140,20 +143,32 @@ class Controller
         $this->redirect('/');
     }
 
-    function display_errors() {
+    function display_messages() {
         global $session;
 
-        if (!$session->getFlashBag()->has('error')) {
+        if (!$session->getFlashBag()->has('error') && !$session->getFlashBag()->has('success')) {
             return;
         }
 
-        $messages = $session->getFlashBag()->get('error');
+        $errorMessages = $session->getFlashBag()->get('error');
+        $successMessages = $session->getFlashBag()->get('success');
 
-        $response = '<div class="alert alert-danger alert-dismissible">';
-        foreach ($messages as $message) {
-            $response .= "{$message}<br/>";
+        $response = "";
+
+        foreach ($errorMessages as $errorMessage) {
+            $response .= '<div class="alert alert-danger alert-dismissible fade in">'
+                        . '<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>';
+            $response .= "{$errorMessage}";
+            $response .= '</div>';
         }
-        $response .= '</div>';
+
+        foreach ($successMessages as $successMessage) {
+            $response .= '<div class="alert alert-success alert-dismissible fade in">'
+                        . '<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>';
+            $response .= "{$successMessage}";
+            $response .= '</div>';
+        }
+
         return $response;
     }
 

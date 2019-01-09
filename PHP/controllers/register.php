@@ -6,7 +6,7 @@ class Register extends Controller
         parent::__construct();
     }
     function index() {
-        $response = $this->display_errors();
+        $response = $this->display_messages();
         $this->view->render('register', $response);
     }
     function doRegister() {
@@ -37,6 +37,7 @@ class Register extends Controller
         $hashed = password_hash($inputPassword, PASSWORD_DEFAULT);
 
         $user = $model->createUser($inputUsername, $hashed);
+        $session->getFlashBag()->add('success', 'You have been successfully registered.');
 
         $this->redirect('/');
     }

@@ -6,6 +6,7 @@ require_once __DIR__ . '/inc/nav.php';
 
     <div class="container">
         <h2>Product List</h2>
+        <?php echo $data['messages']; ?>
         <a href="/product/add" class="btn btn-primary pull-right" role="button">Add a product</a>
         <table class="table table-hover">
             <thead>
@@ -20,7 +21,7 @@ require_once __DIR__ . '/inc/nav.php';
             </thead>
             <tbody>
                 <?php
-                foreach ($data as $datum) {
+                foreach ($data['products'] as $product) {
                     include __DIR__ . '/inc/productRecord.php';
                 }
                 ?>

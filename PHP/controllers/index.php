@@ -9,7 +9,7 @@ class Index extends Controller
         if ($this->isAuthenticated()) {
             $this->redirect('/product');
         } else {
-            $response = $this->display_errors();
+            $response = $this->display_messages();
             $this->view->render('login', $response);
         }
     }
