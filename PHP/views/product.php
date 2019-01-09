@@ -8,6 +8,16 @@ require_once __DIR__ . '/inc/nav.php';
         <h2>Product List</h2>
         <?php echo $data['messages']; ?>
         <a href="/product/add" class="btn btn-primary pull-right" role="button">Add a product</a>
+        <div class="pagination">
+            Pages:
+            <?php for ($i = 1; $i <= $data['total_pages']; $i++) {
+            if ($i == $data['current_page']) { ?>
+            <span><?php echo $i; ?></span>
+            <?php } else { ?>
+            <a href="/product?pg=<?php echo $i; ?>"><?php echo $i; ?></a>
+            <?php }
+            }?>
+        </div>
         <table class="table table-hover">
             <thead>
             <tr>

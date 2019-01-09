@@ -14,7 +14,7 @@ class Group extends Controller
             $data['messages'] = $this->display_messages();
             $this->view->render('group', $data);
         } catch (\Exception $e) {
-            $this->redirect('/error');
+            $this->redirect('/myerror');
         }
     }
     function add() {
@@ -25,7 +25,7 @@ class Group extends Controller
             $data['messages'] = $this->display_messages();
             $this->view->render('addGroup', $data);
         } catch (\Exception $e) {
-            $this->redirect('/error');
+            $this->redirect('/myerror');
         }
     }
     function addGroup() {

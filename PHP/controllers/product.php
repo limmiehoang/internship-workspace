@@ -2,6 +2,7 @@
 
 class Product extends Controller
 {
+    const ITEMS_PER_PAGE = 8;
     function __construct() {
         parent::__construct();
         require 'models/ProductModel.php';
@@ -10,18 +11,40 @@ class Product extends Controller
     function index() {
         $this->requireAuth();
 
+        if (isset($_GET["pg"])) {
+            $currentPage = filter_input(INPUT_GET, "pg", FILTER_SANITIZE_NUMBER_INT);
+        }
+
+        if (empty($currentPage)) {
+            $currentPage = 1;
+        }
+
+        $totalItems = $this->model->getProductCount();
+        $totalPages = ceil($totalItems / self::ITEMS_PER_PAGE);
+
+        if ($currentPage > $totalPages) {
+            $this->redirect("/product?pg=$totalPages");
+        }
+
+        if ($currentPage < 1) {
+            $this->redirect("/product?pg=1");
+        }
+        $offset = ($currentPage - 1) * self::ITEMS_PER_PAGE;
+
+
         try {
-            $data['products'] = $this->model->getAllProducts();
+            $data['products'] = $this->model->getAllProducts(self::ITEMS_PER_PAGE, $offset);
             foreach ($data['products'] as &$product) {
                 $product['write_permission'] = $this->isAuthorized($product['group_id'], $product['owner_id']);
             }
             unset($product);
             $data['messages'] = $this->display_messages();
+            $data['current_page'] = $currentPage;
+            $data['total_pages'] = $totalPages;
             $this->view->render('product', $data);
         } catch (\Exception $e) {
-            $this->redirect('/error');
+            $this->redirect('/myerror');
         }
-
     }
     function add() {
         $this->requireAuth();
@@ -31,7 +54,7 @@ class Product extends Controller
             $data['messages'] = $this->display_messages();
             $this->view->render('addProduct', $data);
         } catch (\Exception $e) {
-            $this->redirect('/error');
+            $this->redirect('/myerror');
         }
     }
     function addProduct() {

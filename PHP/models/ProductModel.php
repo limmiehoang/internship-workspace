@@ -20,7 +20,7 @@ class ProductModel
         }
     }
 
-    public function getAllProducts() {
+    public function getAllProducts($limit = null, $offset = 0) {
         global $db;
 
         try {
@@ -29,7 +29,16 @@ class ProductModel
                       LEFT JOIN categories ON categories.id = products.category_id
                       LEFT JOIN users_groups on users_groups.user_id = users.id
                       LEFT JOIN groups ON groups.id = users_groups.group_id";
-            $stmt = $db->prepare($query);
+            if (is_integer($limit)) {
+                $stmt = $db->prepare(
+                    $query
+                    . " LIMIT ? OFFSET ?"
+                );
+                $stmt->bindParam(1, $limit, PDO::PARAM_INT);
+                $stmt->bindParam(2, $offset, PDO::PARAM_INT);
+            } else {
+                $stmt = $db->prepare($query);
+            }
             $stmt->execute();
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
         } catch (\Exception $e) {
@@ -84,5 +93,27 @@ class ProductModel
         } catch (\Exception $e) {
             throw $e;
         }
+    }
+
+    public function getProductCount($categoryId = null) {
+        global $db;
+
+        try {
+            $query = "SELECT COUNT(id) FROM products";
+            if (!empty($categoryId)) {
+                $stmt = $db->prepare(
+                    $query
+                    . " WHERE category_id = ?"
+                );
+                $stmt->bindParam(1, $categoryId, PDO::PARAM_INT);
+            } else {
+                $stmt = $db->prepare($query);
+            }
+            $stmt->execute();
+        } catch (\Exception $e) {
+            throw $e;
+        }
+
+        return $stmt->fetchColumn(0);
     }
 }
