@@ -7,7 +7,7 @@
 <div class="form-group">
     <label for="leader" class="col-sm-2 control-label">Choose a leader</label>
     <div class="col-sm-10">
-        <select class="form-control" id="leader" required>
+        <select class="form-control" id="leader" name="leader" required>
             <option value="" disabled selected>Choose a leader</option>
             <?php foreach ($data['users'] as $user) { ?>
                 <option value='<?php echo $user['id'] ?>'>
@@ -22,7 +22,7 @@
     <div class="col-sm-10">
         <?php foreach ($data['users'] as $user) { ?>
         <div class="checkbox">
-            <label><input type="checkbox" value='<?php echo $user['id'] ?>'>
+            <label><input type="checkbox" name="members[]" value='<?php echo $user['id'] ?>'>
                 <?php echo htmlspecialchars($user['username']) ?>
             </label>
         </div>

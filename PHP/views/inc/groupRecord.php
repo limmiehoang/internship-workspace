@@ -1,11 +1,12 @@
 <tr>
-    <td><?php echo htmlspecialchars($datum['id']) ?></td>
-    <td><?php echo htmlspecialchars($datum['group_name']) ?></td>
-    <td><?php echo htmlspecialchars($datum['username']) ?></td>
+    <td><?php echo htmlspecialchars($group['id']) ?></td>
+    <td><?php echo htmlspecialchars($group['group_name']) ?></td>
+    <td><?php echo htmlspecialchars($group['username']) ?></td>
     <td class="center-align">
-        <a class="del" href="/group/<?php echo $datum['id']?>">List</a>
+        <a href="/group/<?php echo $group['id']?>">List</a>
     </td>
     <td class="center-align action">
-        <a class="del" href="/group/remove/<?php echo $datum['id']?>">Remove</a>
+        <a href="/group/edit/<?php echo $group['id']?>">Edit</a>
+        <a class="del" href="/group/remove/<?php echo $group['id']?>">Delete</a>
     </td>
 </tr>
