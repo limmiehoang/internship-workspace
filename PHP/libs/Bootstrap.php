@@ -27,7 +27,7 @@ class Bootstrap
             require $file;
             $controller = new $controller_name;
         } else {
-            require 'controllers/error.php';
+            require 'controllers/myerror.php';
             $controller = new MyError();
         }
 

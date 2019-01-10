@@ -1,1 +1,1 @@
-Something has failed!
+404 Not Found!
