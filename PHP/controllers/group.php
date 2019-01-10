@@ -89,4 +89,12 @@ class Group extends Controller
         $data['messages'] = $this->display_messages();
         $this->view->render('groupDetail', $data);
     }
+    function fetch() {
+        try {
+            $data = $this->model->getAllGroups();
+            $this->view->render('inc/select', $data);
+        } catch (\Exception $e) {
+            $this->redirect('/myerror');
+        }
+    }
 }

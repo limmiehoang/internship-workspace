@@ -6,7 +6,7 @@ class GroupModel
         global $db;
 
         try {
-            $query = "SELECT groups.id, group_name, username FROM groups
+            $query = "SELECT groups.id, group_name AS name, username FROM groups
                       LEFT JOIN users_groups ON users_groups.group_id = groups.id
                       LEFT JOIN users ON users.id = users_groups.user_id
                       WHERE role_id = 2";

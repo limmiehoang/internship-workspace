@@ -11,7 +11,18 @@ require_once __DIR__ . '/inc/nav.php';
         <div class="pagination">
             <?php echo $data['pagination_links'];?>
         </div>
-        <table class="table table-hover">
+        <div id="filter-panel">
+            <label for="filter-by">Filter by: </label>
+            <select id="filter-by">
+                <option value="">All</option>
+                <option value="category">Category</option>
+                <option value="group">Group</option>
+            </select>
+            <select id="filter-select">
+
+            </select>
+        </div>
+        <table id="product-table" class="table table-hover">
             <thead>
             <tr>
                 <th>Id</th>
@@ -23,11 +34,7 @@ require_once __DIR__ . '/inc/nav.php';
             </tr>
             </thead>
             <tbody>
-                <?php
-                foreach ($data['products'] as $product) {
-                    include __DIR__ . '/inc/productRecord.php';
-                }
-                ?>
+            <?php include __DIR__ . '/inc/productTable.php'; ?>
             </tbody>
         </table>
     </div>

@@ -19,7 +19,10 @@ class Product extends Controller
             $currentPage = 1;
         }
 
-        $totalItems = $this->model->getProductCount();
+        $categoryId = (isset($_GET["cat"])) ? filter_input(INPUT_GET, "cat", FILTER_SANITIZE_NUMBER_INT) : null;
+        $groupId = (isset($_GET["grp"])) ? filter_input(INPUT_GET, "grp", FILTER_SANITIZE_NUMBER_INT) : null;
+
+        $totalItems = $this->model->getProductCount($categoryId, $groupId);
         $totalPages = ceil($totalItems / self::ITEMS_PER_PAGE);
 
         if ($currentPage > $totalPages) {
@@ -31,9 +34,8 @@ class Product extends Controller
         }
         $offset = ($currentPage - 1) * self::ITEMS_PER_PAGE;
 
-
         try {
-            $data['products'] = $this->model->getAllProducts(self::ITEMS_PER_PAGE, $offset);
+            $data['products'] = $this->model->getProductsCustom($categoryId, $groupId, self::ITEMS_PER_PAGE, $offset);
             foreach ($data['products'] as &$product) {
                 $product['write_permission'] = $this->isAuthorized($product['group_id'], $product['owner_id']);
             }
@@ -132,5 +134,46 @@ class Product extends Controller
             $session->getFlashBag()->add('error', 'Cannot remove record. Please try again!');
         }
         $this->redirect('/product');
+    }
+    function fetchTable()
+    {
+        $this->requireAuth();
+
+        if (isset($_GET["pg"])) {
+            $currentPage = filter_input(INPUT_GET, "pg", FILTER_SANITIZE_NUMBER_INT);
+        }
+
+        if (empty($currentPage)) {
+            $currentPage = 1;
+        }
+
+        $categoryId = (isset($_GET["category"])) ? filter_input(INPUT_GET, "category", FILTER_SANITIZE_NUMBER_INT) : null;
+        $groupId = (isset($_GET["group"])) ? filter_input(INPUT_GET, "group", FILTER_SANITIZE_NUMBER_INT) : null;
+
+        $totalItems = $this->model->getProductCount($categoryId, $groupId);
+        if ($totalItems == 0)
+            return;
+        $totalPages = ceil($totalItems / self::ITEMS_PER_PAGE);
+
+        if ($currentPage > $totalPages) {
+            $this->redirect("/product?pg=$totalPages");
+        }
+
+        if ($currentPage < 1) {
+            $this->redirect("/product?pg=1");
+        }
+        $offset = ($currentPage - 1) * self::ITEMS_PER_PAGE;
+
+        try {
+            $data['products'] = $this->model->getProductsCustom($categoryId, $groupId, self::ITEMS_PER_PAGE, $offset);
+            foreach ($data['products'] as &$product) {
+                $product['write_permission'] = $this->isAuthorized($product['group_id'], $product['owner_id']);
+            }
+            unset($product);
+            $data['pagination_links'] = $this->create_pagination_links($totalPages, $currentPage, $totalItems, self::ITEMS_PER_PAGE);
+            $this->view->render('inc/productTable', $data);
+        } catch (\Exception $e) {
+            $this->redirect('/myerror');
+        }
     }
 }

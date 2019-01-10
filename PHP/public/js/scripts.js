@@ -78,3 +78,53 @@ $("#leader").change(function () {
     $checkbox.prop("checked", false);
     $checkbox.prop("disabled", true);
 });
+
+$("#filter-by").change(function () {
+    $("#filter-select").empty();
+    $selected_filter = $("#filter-by option:selected").val();
+    if ($selected_filter != "") {
+        $.ajax({
+            async: true,
+            type: 'GET',
+            url: `/${$selected_filter}/fetch`,
+            success: function (html) {
+                $('#filter-select').append(html);
+            }
+        });
+    }
+    $.ajax({
+        async: true,
+        type: 'GET',
+        url: `/product/fetchTable`,
+        success: function (html) {
+            $('#product-table tbody').empty();
+            $('#product-table tbody').append(html);
+        }
+    });
+});
+
+$("#filter-select").change(function () {
+    $filter_by = $("#filter-by option:selected").val();
+    $selected_filter = $("#filter-select option:selected").val();
+    if ($selected_filter == "") {
+        $.ajax({
+            async: true,
+            type: 'GET',
+            url: `/product/fetchTable`,
+            success: function (html) {
+                $('#product-table tbody').empty();
+                $('#product-table tbody').append(html);
+            }
+        });
+        return;
+    }
+    $.ajax({
+        async: true,
+        type: 'GET',
+        url: `/product/fetchTable?${$filter_by}=${$selected_filter}`,
+        success: function (html) {
+            $('#product-table tbody').empty();
+            $('#product-table tbody').append(html);
+        }
+    });
+});

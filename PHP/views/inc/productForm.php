@@ -12,7 +12,7 @@
         <select class="form-control" id="category" name="category">
             <?php foreach ($data['categories'] as $category) { ?>
                 <option value='<?php echo $category['id'] ?>' <?php if (isset($data['item'])) echo ($data['item']['category_id'] == $category['id']) ? "selected" : ""?>>
-                    <?php echo htmlspecialchars($category['category']) ?>
+                    <?php echo htmlspecialchars($category['name']) ?>
                 </option>
             <?php } ?>
         </select>

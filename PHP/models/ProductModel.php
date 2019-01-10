@@ -46,6 +46,99 @@ class ProductModel
         }
     }
 
+    public function getProductsByCategoryId($categoryId, $limit = null, $offset = 0) {
+        global $db;
+
+        try {
+            $query = "SELECT products.id, product_name, owner_id, role_id, username, category, groups.id AS group_id, group_name FROM products
+                      LEFT JOIN users ON users.id = products.owner_id
+                      LEFT JOIN categories ON categories.id = products.category_id
+                      LEFT JOIN users_groups on users_groups.user_id = users.id
+                      LEFT JOIN groups ON groups.id = users_groups.group_id
+                      WHERE category_id = ?";
+            if (is_integer($limit)) {
+                $stmt = $db->prepare(
+                    $query
+                    . " LIMIT ? OFFSET ?"
+                );
+                $stmt->bindParam(1, $categoryId, PDO::PARAM_INT);
+                $stmt->bindParam(2, $limit, PDO::PARAM_INT);
+                $stmt->bindParam(3, $offset, PDO::PARAM_INT);
+            } else {
+                $stmt = $db->prepare($query);
+            }
+            $stmt->execute();
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        } catch (\Exception $e) {
+            throw $e;
+        }
+    }
+
+    public function getProductsCustom($categoryId = null, $groupId = null, $limit = null, $offset = 0) {
+        global $db;
+
+        try {
+            $query = "SELECT products.id, product_name, owner_id, role_id, username, category, groups.id AS group_id, group_name FROM products
+                      LEFT JOIN users ON users.id = products.owner_id
+                      LEFT JOIN categories ON categories.id = products.category_id
+                      LEFT JOIN users_groups on users_groups.user_id = users.id
+                      LEFT JOIN groups ON groups.id = users_groups.group_id
+                      WHERE 1";
+            if (isset($categoryId)) {
+                $query .= " AND category_id = :categoryId";
+            }
+            if (isset($groupId)) {
+                $query .= " AND groups.id = :groupId";
+            }
+            if (is_integer($limit)) {
+                $stmt = $db->prepare(
+                    $query
+                    . " LIMIT :limit OFFSET :offset"
+                );
+                if (isset($categoryId))
+                    $stmt->bindParam(':categoryId', $categoryId);
+                if (isset($groupId))
+                    $stmt->bindParam(':groupId', $groupId);
+                $stmt->bindParam(':limit', $limit, PDO::PARAM_INT);
+                $stmt->bindParam(':offset', $offset, PDO::PARAM_INT);
+            } else {
+                $stmt = $db->prepare($query);
+            }
+            $stmt->execute();
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        } catch (\Exception $e) {
+            throw $e;
+        }
+    }
+
+    public function getProductsByGroupId($groupId, $limit = null, $offset = 0) {
+        global $db;
+
+        try {
+            $query = "SELECT products.id, product_name, owner_id, role_id, username, category, groups.id AS group_id, group_name FROM products
+                      LEFT JOIN users ON users.id = products.owner_id
+                      LEFT JOIN categories ON categories.id = products.category_id
+                      LEFT JOIN users_groups on users_groups.user_id = users.id
+                      LEFT JOIN groups ON groups.id = users_groups.group_id
+                      WHERE groups.id = ?";
+            if (is_integer($limit)) {
+                $stmt = $db->prepare(
+                    $query
+                    . " LIMIT ? OFFSET ?"
+                );
+                $stmt->bindParam(1, $groupId, PDO::PARAM_INT);
+                $stmt->bindParam(2, $limit, PDO::PARAM_INT);
+                $stmt->bindParam(3, $offset, PDO::PARAM_INT);
+            } else {
+                $stmt = $db->prepare($query);
+            }
+            $stmt->execute();
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        } catch (\Exception $e) {
+            throw $e;
+        }
+    }
+
     public function findProductById($productId) {
         global $db;
 
@@ -95,20 +188,24 @@ class ProductModel
         }
     }
 
-    public function getProductCount($categoryId = null) {
+    public function getProductCount($categoryId = null, $groupId = null) {
         global $db;
 
         try {
-            $query = "SELECT COUNT(id) FROM products";
-            if (!empty($categoryId)) {
-                $stmt = $db->prepare(
-                    $query
-                    . " WHERE category_id = ?"
-                );
-                $stmt->bindParam(1, $categoryId, PDO::PARAM_INT);
-            } else {
-                $stmt = $db->prepare($query);
+            $query = "SELECT COUNT(id) FROM products
+                      JOIN users_groups on users_groups.user_id = products.owner_id
+                      WHERE 1";
+            if (isset($categoryId)) {
+                $query .= " AND category_id = :categoryId";
             }
+            if (isset($groupId)) {
+                $query .= " AND group_id = :groupId";
+            }
+            $stmt = $db->prepare($query);
+            if (isset($categoryId))
+                $stmt->bindParam(':categoryId', $categoryId);
+            if (isset($groupId))
+                $stmt->bindParam(':groupId', $groupId);
             $stmt->execute();
         } catch (\Exception $e) {
             throw $e;
