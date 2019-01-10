@@ -39,8 +39,7 @@ class Product extends Controller
             }
             unset($product);
             $data['messages'] = $this->display_messages();
-            $data['current_page'] = $currentPage;
-            $data['total_pages'] = $totalPages;
+            $data['pagination_links'] = $this->create_pagination_links($totalPages, $currentPage, $totalItems, self::ITEMS_PER_PAGE);
             $this->view->render('product', $data);
         } catch (\Exception $e) {
             $this->redirect('/myerror');

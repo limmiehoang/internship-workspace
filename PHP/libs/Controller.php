@@ -178,4 +178,25 @@ class Controller
 
         return $model->getAllCategories();
     }
+
+    function create_pagination_links($totalPages, $currentPage, $totalItems, $itemsPerPage)
+    {
+        $response = "<div>Pages: ";
+        for ($i = 1; $i <= $totalPages; $i++) {
+            if ($i == $currentPage) {
+                $response .= " <span>$i</span>";
+            } else {
+                $response .= " <a href='/product?pg=$i'>$i</a>";
+            }
+        }
+        $response .= "</div>";
+        $offset = ($currentPage - 1) * $itemsPerPage;
+        $response .= 'Showing ' . ($offset + 1) . ' to ';
+        if (($offset + $itemsPerPage) < ($totalItems - 1))
+            $response .= $offset + $itemsPerPage;
+        else
+            $response .= $totalItems;
+        $response .= ' of ' . $totalItems . ' entries';
+        return $response;
+    }
 }
