@@ -75,5 +75,6 @@ $("#leader").change(function () {
     });
     $selected_user = $("#leader option:selected").val();
     $checkbox = $(`:checkbox[value=${$selected_user}]`);
-    $checkbox.attr("disabled", "true");
+    $checkbox.prop("checked", false);
+    $checkbox.prop("disabled", true);
 });
