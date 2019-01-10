@@ -15,5 +15,6 @@ Desktop.ini
 
 # keep some hiddens
 !.htaccess
+!.env
 !/.gitignore
 !/.travis.yml
