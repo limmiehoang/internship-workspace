@@ -193,12 +193,12 @@ class Controller
             if ($i == $currentPage) {
                 $response .= " <span>$i</span>";
             } else {
-                $response .= " <a href='/product?pg=$i'>$i</a>";
+                $response .= " <a class='pagination-link'>$i</a>";
             }
         }
         $response .= "</div>";
         $offset = ($currentPage - 1) * $itemsPerPage;
-        $response .= 'Showing ';
+        $response .= '<div>Showing ';
         if ($totalItems != 0)
             $response .= ($offset + 1);
         else
@@ -208,7 +208,7 @@ class Controller
             $response .= $offset + $itemsPerPage;
         else
             $response .= $totalItems;
-        $response .= ' of ' . $totalItems . ' entries';
+        $response .= ' of ' . $totalItems . ' entries</div>';
         return $response;
     }
 }

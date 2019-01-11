@@ -88,8 +88,8 @@ $("#filter-category").change(function () {
         type: 'GET',
         url: `/product/fetchTable?cat=${$selected_category}&grp=${$selected_group}`,
         success: function (html) {
-            $('#product-table tbody').empty();
-            $('#product-table tbody').append(html);
+            $('#product-table').empty();
+            $('#product-table').append(html);
         }
     });
     return;
@@ -104,8 +104,25 @@ $("#filter-group").change(function () {
         type: 'GET',
         url: `/product/fetchTable?cat=${$selected_category}&grp=${$selected_group}`,
         success: function (html) {
-            $('#product-table tbody').empty();
-            $('#product-table tbody').append(html);
+            $('#product-table').empty();
+            $('#product-table').append(html);
+        }
+    });
+    return;
+});
+
+$("#product-table").on('click', '.pagination-link', function () {
+    $selected_page = $(this).text();
+    $selected_category = $("#filter-category option:selected").val();
+    $selected_group = $("#filter-group option:selected").val();
+
+    $.ajax({
+        async: true,
+        type: 'GET',
+        url: `/product/fetchTable?pg=${$selected_page}&cat=${$selected_category}&grp=${$selected_group}`,
+        success: function (html) {
+            $('#product-table').empty();
+            $('#product-table').append(html);
         }
     });
     return;

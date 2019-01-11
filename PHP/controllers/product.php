@@ -143,7 +143,7 @@ class Product extends Controller
     function fetchTable()
     {
         $this->requireAuth();
-        
+
         if (isset($_GET["pg"])) {
             $currentPage = filter_input(INPUT_GET, "pg", FILTER_SANITIZE_NUMBER_INT);
         }

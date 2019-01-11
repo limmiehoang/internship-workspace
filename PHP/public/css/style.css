@@ -165,6 +165,12 @@ button:hover {
     padding-left: 5px;
 }
 
+.pagination {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row-reverse;
+}
+
 /* Group Detail */
 
 .user-bullet li:before

@@ -7,9 +7,8 @@ require_once __DIR__ . '/inc/nav.php';
     <div class="container">
         <h2>Product List</h2>
         <?php echo $data['messages']; ?>
-        <a href="/product/add" class="btn btn-primary pull-right" role="button">Add a product</a>
-        <div class="pagination">
-            <?php echo $data['pagination_links'];?>
+        <div class="clearfix">
+            <a href="/product/add" class="btn btn-primary pull-right" role="button">Add a product</a>
         </div>
         <div id="filter-panel">
             <label for="filter-category">Filter by: </label>
@@ -26,21 +25,10 @@ require_once __DIR__ . '/inc/nav.php';
                 <?php } ?>
             </select>
         </div>
-        <table id="product-table" class="table table-hover">
-            <thead>
-            <tr>
-                <th>Id</th>
-                <th>Product</th>
-                <th>Owner</th>
-                <th>Category</th>
-                <th>Group</th>
-                <th class="center-align">Action</th>
-            </tr>
-            </thead>
-            <tbody>
+
+        <div id="product-table">
             <?php include __DIR__ . '/inc/productTable.php'; ?>
-            </tbody>
-        </table>
+        </div>
     </div>
 
 <?php require_once __DIR__ . '/inc/footer.php'; ?>
