@@ -179,6 +179,13 @@ class Controller
         return $model->getAllCategories();
     }
 
+    function get_groups() {
+        require 'models/GroupModel.php';
+        $model = new GroupModel();
+
+        return $model->getAllGroups();
+    }
+
     function create_pagination_links($totalPages, $currentPage, $totalItems, $itemsPerPage)
     {
         $response = "<div>Pages: ";

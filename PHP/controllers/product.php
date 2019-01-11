@@ -45,6 +45,8 @@ class Product extends Controller
             unset($product);
             $data['messages'] = $this->display_messages();
             $data['pagination_links'] = $this->create_pagination_links($totalPages, $currentPage, $totalItems, self::ITEMS_PER_PAGE);
+            $data['categories'] = $this->get_categories();
+            $data['groups'] = $this->get_groups();
             $this->view->render('product', $data);
         } catch (\Exception $e) {
             $this->redirect('/myerror');
@@ -141,7 +143,7 @@ class Product extends Controller
     function fetchTable()
     {
         $this->requireAuth();
-
+        
         if (isset($_GET["pg"])) {
             $currentPage = filter_input(INPUT_GET, "pg", FILTER_SANITIZE_NUMBER_INT);
         }
@@ -150,8 +152,11 @@ class Product extends Controller
             $currentPage = 1;
         }
 
-        $categoryId = (isset($_GET["category"])) ? filter_input(INPUT_GET, "category", FILTER_SANITIZE_NUMBER_INT) : null;
-        $groupId = (isset($_GET["group"])) ? filter_input(INPUT_GET, "group", FILTER_SANITIZE_NUMBER_INT) : null;
+        $categoryId = (isset($_GET["cat"])) ? filter_input(INPUT_GET, "cat", FILTER_SANITIZE_NUMBER_INT) : null;
+        $groupId = (isset($_GET["grp"])) ? filter_input(INPUT_GET, "grp", FILTER_SANITIZE_NUMBER_INT) : null;
+
+        $categoryId = ($categoryId > 0) ? $categoryId : null;
+        $groupId = ($groupId > 0) ? $groupId : null;
 
         $totalItems = $this->model->getProductCount($categoryId, $groupId);
         if ($totalItems == 0)

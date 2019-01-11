@@ -11,12 +11,4 @@ class Category extends Controller
     function index() {
         $this->redirect('/myerror');
     }
-    function fetch() {
-        try {
-            $data = $this->model->getAllCategories();
-            $this->view->render('inc/select', $data);
-        } catch (\Exception $e) {
-            $this->redirect('/myerror');
-        }
-    }
 }

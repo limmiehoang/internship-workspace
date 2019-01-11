@@ -10,7 +10,7 @@ class Group extends Controller
     }
     function index() {
         try {
-            $data['groups'] = $this->model->getAllGroups();
+            $data['groups'] = $this->model->getNonEmptyGroups();
             $data['messages'] = $this->display_messages();
             $this->view->render('group', $data);
         } catch (\Exception $e) {
@@ -88,13 +88,5 @@ class Group extends Controller
 
         $data['messages'] = $this->display_messages();
         $this->view->render('groupDetail', $data);
-    }
-    function fetch() {
-        try {
-            $data = $this->model->getAllGroups();
-            $this->view->render('inc/select', $data);
-        } catch (\Exception $e) {
-            $this->redirect('/myerror');
-        }
     }
 }

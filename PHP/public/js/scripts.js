@@ -79,52 +79,34 @@ $("#leader").change(function () {
     $checkbox.prop("disabled", true);
 });
 
-$("#filter-by").change(function () {
-    $("#filter-select").empty();
-    $selected_filter = $("#filter-by option:selected").val();
-    if ($selected_filter != "") {
-        $.ajax({
-            async: true,
-            type: 'GET',
-            url: `/${$selected_filter}/fetch`,
-            success: function (html) {
-                $('#filter-select').append(html);
-            }
-        });
-    }
+$("#filter-category").change(function () {
+    $selected_category = $("#filter-category option:selected").val();
+    $selected_group = $("#filter-group option:selected").val();
+
     $.ajax({
         async: true,
         type: 'GET',
-        url: `/product/fetchTable`,
+        url: `/product/fetchTable?cat=${$selected_category}&grp=${$selected_group}`,
         success: function (html) {
             $('#product-table tbody').empty();
             $('#product-table tbody').append(html);
         }
     });
+    return;
 });
 
-$("#filter-select").change(function () {
-    $filter_by = $("#filter-by option:selected").val();
-    $selected_filter = $("#filter-select option:selected").val();
-    if ($selected_filter == "") {
-        $.ajax({
-            async: true,
-            type: 'GET',
-            url: `/product/fetchTable`,
-            success: function (html) {
-                $('#product-table tbody').empty();
-                $('#product-table tbody').append(html);
-            }
-        });
-        return;
-    }
+$("#filter-group").change(function () {
+    $selected_category = $("#filter-category option:selected").val();
+    $selected_group = $("#filter-group option:selected").val();
+
     $.ajax({
         async: true,
         type: 'GET',
-        url: `/product/fetchTable?${$filter_by}=${$selected_filter}`,
+        url: `/product/fetchTable?cat=${$selected_category}&grp=${$selected_group}`,
         success: function (html) {
             $('#product-table tbody').empty();
             $('#product-table tbody').append(html);
         }
     });
+    return;
 });

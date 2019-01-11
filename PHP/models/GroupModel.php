@@ -6,7 +6,20 @@ class GroupModel
         global $db;
 
         try {
-            $query = "SELECT groups.id, group_name AS name, username FROM groups
+            $query = "SELECT * FROM groups";
+            $stmt = $db->prepare($query);
+            $stmt->execute();
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        } catch (\Exception $e) {
+            throw $e;
+        }
+    }
+
+    public function getNonEmptyGroups() {
+        global $db;
+
+        try {
+            $query = "SELECT groups.id, group_name, username FROM groups
                       LEFT JOIN users_groups ON users_groups.group_id = groups.id
                       LEFT JOIN users ON users.id = users_groups.user_id
                       WHERE role_id = 2";

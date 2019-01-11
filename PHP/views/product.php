@@ -12,14 +12,18 @@ require_once __DIR__ . '/inc/nav.php';
             <?php echo $data['pagination_links'];?>
         </div>
         <div id="filter-panel">
-            <label for="filter-by">Filter by: </label>
-            <select id="filter-by">
-                <option value="">All</option>
-                <option value="category">Category</option>
-                <option value="group">Group</option>
+            <label for="filter-category">Filter by: </label>
+            <select id="filter-category">
+                <option value="">Category</option>
+                <?php foreach ($data['categories'] as $item) { ?>
+                    <option value="<?php echo $item['id'];?>"><?php echo $item['category'];?></option>
+                <?php } ?>
             </select>
-            <select id="filter-select">
-
+            <select id="filter-group">
+                <option value="">Group</option>
+                <?php foreach ($data['groups'] as $item) { ?>
+                    <option value="<?php echo $item['id'];?>"><?php echo $item['group_name'];?></option>
+                <?php } ?>
             </select>
         </div>
         <table id="product-table" class="table table-hover">
