@@ -23,7 +23,10 @@ class Product extends Controller
         $groupId = (isset($_GET["grp"])) ? filter_input(INPUT_GET, "grp", FILTER_SANITIZE_NUMBER_INT) : null;
 
         $totalItems = $this->model->getProductCount($categoryId, $groupId);
-        $totalPages = ceil($totalItems / self::ITEMS_PER_PAGE);
+        if ($totalItems == 0)
+            $totalPages = 1;
+        else
+            $totalPages = ceil($totalItems / self::ITEMS_PER_PAGE);
 
         if ($currentPage > $totalPages) {
             $this->redirect("/product?pg=$totalPages");

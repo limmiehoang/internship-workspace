@@ -191,8 +191,13 @@ class Controller
         }
         $response .= "</div>";
         $offset = ($currentPage - 1) * $itemsPerPage;
-        $response .= 'Showing ' . ($offset + 1) . ' to ';
-        if (($offset + $itemsPerPage) < ($totalItems - 1))
+        $response .= 'Showing ';
+        if ($totalItems != 0)
+            $response .= ($offset + 1);
+        else
+            $response .= $offset;
+        $response .= ' to ';
+        if (($offset + $itemsPerPage) < $totalItems)
             $response .= $offset + $itemsPerPage;
         else
             $response .= $totalItems;
