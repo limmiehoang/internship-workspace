@@ -27,7 +27,6 @@ require_once __DIR__ . '/inc/nav.php';
         </div>
 
         <div id="product-table">
-            <?php include __DIR__ . '/inc/productTable.php'; ?>
         </div>
     </div>
 

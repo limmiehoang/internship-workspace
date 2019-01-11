@@ -11,40 +11,8 @@ class Product extends Controller
     function index() {
         $this->requireAuth();
 
-        if (isset($_GET["pg"])) {
-            $currentPage = filter_input(INPUT_GET, "pg", FILTER_SANITIZE_NUMBER_INT);
-        }
-
-        if (empty($currentPage)) {
-            $currentPage = 1;
-        }
-
-        $categoryId = (isset($_GET["cat"])) ? filter_input(INPUT_GET, "cat", FILTER_SANITIZE_NUMBER_INT) : null;
-        $groupId = (isset($_GET["grp"])) ? filter_input(INPUT_GET, "grp", FILTER_SANITIZE_NUMBER_INT) : null;
-
-        $totalItems = $this->model->getProductCount($categoryId, $groupId);
-        if ($totalItems == 0)
-            $totalPages = 1;
-        else
-            $totalPages = ceil($totalItems / self::ITEMS_PER_PAGE);
-
-        if ($currentPage > $totalPages) {
-            $this->redirect("/product?pg=$totalPages");
-        }
-
-        if ($currentPage < 1) {
-            $this->redirect("/product?pg=1");
-        }
-        $offset = ($currentPage - 1) * self::ITEMS_PER_PAGE;
-
         try {
-            $data['products'] = $this->model->getProductsCustom($categoryId, $groupId, self::ITEMS_PER_PAGE, $offset);
-            foreach ($data['products'] as &$product) {
-                $product['write_permission'] = $this->isAuthorized($product['group_id'], $product['owner_id']);
-            }
-            unset($product);
             $data['messages'] = $this->display_messages();
-            $data['pagination_links'] = $this->create_pagination_links($totalPages, $currentPage, $totalItems, self::ITEMS_PER_PAGE);
             $data['categories'] = $this->get_categories();
             $data['groups'] = $this->get_groups();
             $this->view->render('product', $data);
@@ -160,8 +128,9 @@ class Product extends Controller
 
         $totalItems = $this->model->getProductCount($categoryId, $groupId);
         if ($totalItems == 0)
-            return;
-        $totalPages = ceil($totalItems / self::ITEMS_PER_PAGE);
+            $totalPages = 1;
+        else
+            $totalPages = ceil($totalItems / self::ITEMS_PER_PAGE);
 
         if ($currentPage > $totalPages) {
             $this->redirect("/product?pg=$totalPages");

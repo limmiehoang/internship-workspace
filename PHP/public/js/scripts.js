@@ -79,6 +79,18 @@ $("#leader").change(function () {
     $checkbox.prop("disabled", true);
 });
 
+$("#product-table").ready(function () {
+    $.ajax({
+        async: true,
+        type: 'GET',
+        url: `/product/fetchTable`,
+        success: function (html) {
+            $('#product-table').empty();
+            $('#product-table').append(html);
+        }
+    });
+});
+
 $("#filter-category").change(function () {
     $selected_category = $("#filter-category option:selected").val();
     $selected_group = $("#filter-group option:selected").val();
@@ -92,7 +104,6 @@ $("#filter-category").change(function () {
             $('#product-table').append(html);
         }
     });
-    return;
 });
 
 $("#filter-group").change(function () {
@@ -108,7 +119,6 @@ $("#filter-group").change(function () {
             $('#product-table').append(html);
         }
     });
-    return;
 });
 
 $("#product-table").on('click', '.pagination-link', function () {
@@ -125,5 +135,4 @@ $("#product-table").on('click', '.pagination-link', function () {
             $('#product-table').append(html);
         }
     });
-    return;
 });
