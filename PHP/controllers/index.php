@@ -8,9 +8,7 @@ class Index extends Controller
     function index() {
         if ($this->isAuthenticated()) {
             $this->redirect('/product');
-        } else {
-            $response = $this->display_messages();
-            $this->view->render('login', $response);
         }
+        $this->redirect('/login');
     }
 }

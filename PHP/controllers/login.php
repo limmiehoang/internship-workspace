@@ -6,7 +6,11 @@ class Login extends Controller
         parent::__construct();
     }
     function index() {
-        $this->redirect('/');
+        if ($this->isAuthenticated()) {
+            $this->redirect('/product');
+        }
+        $response = $this->display_messages();
+        $this->view->render('login', $response);
     }
     function doLogin() {
         global $session;
@@ -43,6 +47,6 @@ class Login extends Controller
 
         $accessToken = new Symfony\Component\HttpFoundation\Cookie('access_token', $jwt, $expTime, '/', getenv('COOKIE_DOMAIN'));
         $session->getFlashBag()->add('success', 'You have just logged in.');
-        $this->redirect('/', ['cookies' => [$accessToken]]);
+        $this->redirect('/product', ['cookies' => [$accessToken]]);
     }
 }
