@@ -63,11 +63,11 @@ $('#group-form').validate({
     }
 });
 
-$(".del").click(function(){
+$("#product-table").on('click', '.del', (function(){
     if (!confirm("Do you want to delete?")){
         return false;
     }
-});
+}));
 
 $("#leader").change(function () {
     $(":checkbox").each(function (){
