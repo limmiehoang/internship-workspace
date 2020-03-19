@@ -3,7 +3,7 @@
   "description": "PHP Demo - Product Management",
   "type": "project",
   "require": {
-    "symfony/http-foundation": "3.1.6",
+    "symfony/http-foundation": "3.4.35",
     "firebase/php-jwt": "^5.0",
     "vlucas/phpdotenv": "^3.0"
   }
